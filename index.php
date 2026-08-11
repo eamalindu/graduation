@@ -31,14 +31,16 @@
             <form id="search-form" class="search-form" autocomplete="off">
                 <label for="reg-number" class="field-label">Registration Number</label>
                 <input
-                        type="text"
+                        type="number"
                         id="reg-number"
                         name="registration_number"
                         class="field-input"
-                        placeholder="MC/2022/0001"
+                        placeholder="2610454"
                         autocapitalize="characters"
                         autocomplete="off"
                         required
+                        inputmode="numeric"
+                        pattern="[0-9]*"
                 >
                 <button type="submit" id="search-btn" class="btn btn--primary">Find My Record</button>
             </form>

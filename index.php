@@ -87,7 +87,7 @@
     </main>
 
     <footer class="footer">
-        <p>Powered by Pixelbros</p>
+        <p>Powered by <a href="https://pixelbros.online/" target="_blank">Pixelbros</a></p>
     </footer>
 
 </div>

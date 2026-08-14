@@ -316,6 +316,10 @@ body {
   text-align: center;
 }
 
+footer a{
+  color: var(--ink-muted);
+}
+
 [hidden] { display: none !important; }
 
 /* ---------- Accessibility ---------- */

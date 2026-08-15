@@ -74,7 +74,7 @@
 
             <div id="success-state" class="success" hidden aria-live="polite">
                 <div class="seal seal--stamp" aria-hidden="true">
-                    <img src="images/Success.gif" alt="Metropolitan College Seal" class="seal__img" width="100"
+                    <img src="images/Success.gif" alt="Metropolitan College Seal" class="seal__img" style="margin: 0 auto; display: block" width="100"
                          height="100">
                 </div>
                 <h2 class="success__title">Attendance Recorded</h2>

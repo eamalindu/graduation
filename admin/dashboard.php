@@ -35,9 +35,10 @@ requireAdminLogin();
   <main class="admin-main">
 
     <section class="stats-grid" aria-live="polite">
-      <div class="stat-card">
+      <div class="stat-card"><a href="all_students.php">
         <span class="stat-card__value" id="stat-total">—</span>
         <span class="stat-card__label">Total</span>
+          </a>
       </div>
       <div class="stat-card">
         <span class="stat-card__value" id="stat-present">—</span>

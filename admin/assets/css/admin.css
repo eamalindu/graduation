@@ -198,3 +198,14 @@
 .recent-row__name { font-size: 14px; font-weight: 600; }
 .recent-row__reg { font-family: var(--font-mono); font-size: 12px; color: var(--ink-muted); }
 .recent-row__time { font-size: 12.5px; color: var(--ink-muted); white-space: nowrap; }
+
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.students-table td, th {
+  border: 1px solid var(--border);
+  padding: 8px;
+}

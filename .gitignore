@@ -3,3 +3,6 @@ config/database.php
 .env
 vendor/**
 .idea/**
+/admin/migration_2_admin.sql
+/admin/README.md
+/admin/schema.sql

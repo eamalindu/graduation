@@ -16,8 +16,10 @@ requireAdminLogin();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/3.0.0/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/admin.css">
+
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
 </head>
 <body>
@@ -37,7 +39,7 @@ requireAdminLogin();
 
     <section class="panel-section">
         <h2 class="section-title">Student All Data</h2>
-        <div class="table-container" style="height: 400px; overflow-y: auto;">
+        <div class="table-container">
             <table class="students-table" id="students-table">
                 <thead>
                     <tr>
@@ -60,6 +62,11 @@ requireAdminLogin();
     </main>
 </div>
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
+
+
+<script src="https://cdn.datatables.net/3.0.0/js/dataTables.js"></script>
+
+<script src="/js/students.js"></script>
 <script src="assets/js/students.js"></script>
 </body>
 </html>

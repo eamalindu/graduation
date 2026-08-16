@@ -8,18 +8,15 @@ require_once __DIR__ . '/../../config/database.php';
 
 requireAdminLoginApi();
 
-try{
+try {
     $pdo = getDbConnection();
 
-    $students = $pdo->query(
-        "SELECT id, registration_number, full_name, course, faculty, batch, attendance_status, attendance_time, marked_by
+    $students = $pdo->query("SELECT id, registration_number, full_name, course, faculty, batch, attendance_status, attendance_time, marked_by
          FROM students
-         ORDER BY id"
-    )->fetchAll();
+         ORDER BY id")->fetchAll();
 
     echo json_encode(['success' => true, 'students' => $students]);
-}
-catch (Throwable $e) {
+} catch (Throwable $e) {
     error_log('student data error: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Could not load students.']);

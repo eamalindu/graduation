@@ -18,11 +18,11 @@ function prompt(string $label, bool $hidden = false): string
     echo $label;
     if ($hidden && stripos(PHP_OS, 'WIN') === false) {
         system('stty -echo');
-        $value = trim((string) fgets(STDIN));
+        $value = trim((string)fgets(STDIN));
         system('stty echo');
         echo "\n";
     } else {
-        $value = trim((string) fgets(STDIN));
+        $value = trim((string)fgets(STDIN));
     }
     return $value;
 }
@@ -30,11 +30,12 @@ function prompt(string $label, bool $hidden = false): string
 $username = prompt('Username: ');
 $fullName = prompt('Full name (optional): ');
 $password = prompt('Password: ', true);
-$confirm  = prompt('Confirm password: ', true);
+$confirm = prompt('Confirm password: ', true);
 
 if ($username === '' || $password === '') {
     exit("Username and password are required.\n");
 }
+
 
 if ($password !== $confirm) {
     exit("Passwords do not match.\n");
@@ -42,15 +43,9 @@ if ($password !== $confirm) {
 
 $pdo = getDbConnection();
 
-$stmt = $pdo->prepare(
-    'INSERT INTO admins (username, password_hash, full_name)
+$stmt = $pdo->prepare('INSERT INTO admins (username, password_hash, full_name)
      VALUES (:username, :password_hash, :full_name)
-     ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash), full_name = VALUES(full_name)'
-);
-$stmt->execute([
-    'username'      => $username,
-    'password_hash' => password_hash($password, PASSWORD_DEFAULT),
-    'full_name'     => $fullName !== '' ? $fullName : null,
-]);
+     ON DUPLICATE KEY UPDATE password_hash = VALUES(password_hash), full_name = VALUES(full_name)');
+$stmt->execute(['username' => $username, 'password_hash' => password_hash($password, PASSWORD_DEFAULT), 'full_name' => $fullName !== '' ? $fullName : null,]);
 
 echo "Admin account '{$username}' saved.\n";

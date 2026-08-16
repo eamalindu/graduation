@@ -21,12 +21,10 @@ if ($regNumber === '') {
 try {
     $pdo = getDbConnection();
 
-    $stmt = $pdo->prepare(
-        'SELECT id, full_name, attendance_status, attendance_time
+    $stmt = $pdo->prepare('SELECT id, full_name, attendance_status, attendance_time
          FROM students
          WHERE UPPER(registration_number) = UPPER(:reg_number)
-         LIMIT 1'
-    );
+         LIMIT 1');
     $stmt->execute(['reg_number' => $regNumber]);
     $student = $stmt->fetch();
 
@@ -36,30 +34,19 @@ try {
     }
 
     if ($student['attendance_status'] === 'present') {
-        echo json_encode([
-            'success'         => false,
-            'already_marked'  => true,
-            'message'         => 'Already recorded.',
-            'attendance_time' => $student['attendance_time'],
-        ]);
+        echo json_encode(['success' => false, 'already_marked' => true, 'message' => 'Already recorded.', 'attendance_time' => $student['attendance_time'],]);
         exit;
     }
 
     // The status='pending' guard means only one of two overlapping requests
     // (e.g. a double-tap) can ever win this update.
-    $update = $pdo->prepare(
-        "UPDATE students
+    $update = $pdo->prepare("UPDATE students
          SET attendance_status = 'present', attendance_time = NOW()
-         WHERE id = :id AND attendance_status = 'pending'"
-    );
+         WHERE id = :id AND attendance_status = 'pending'");
     $update->execute(['id' => $student['id']]);
 
     if ($update->rowCount() === 0) {
-        echo json_encode([
-            'success'        => false,
-            'already_marked' => true,
-            'message'        => 'Already recorded.',
-        ]);
+        echo json_encode(['success' => false, 'already_marked' => true, 'message' => 'Already recorded.',]);
         exit;
     }
 
@@ -67,12 +54,7 @@ try {
     $confirm->execute(['id' => $student['id']]);
     $attendanceTime = $confirm->fetchColumn();
 
-    echo json_encode([
-        'success'         => true,
-        'message'         => 'Attendance recorded.',
-        'full_name'       => $student['full_name'],
-        'attendance_time' => $attendanceTime,
-    ]);
+    echo json_encode(['success' => true, 'message' => 'Attendance recorded.', 'full_name' => $student['full_name'], 'attendance_time' => $attendanceTime,]);
 } catch (Throwable $e) {
     error_log('mark_attendance error: ' . $e->getMessage());
     http_response_code(500);

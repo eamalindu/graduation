@@ -39,28 +39,19 @@ try {
     }
 
     if ($action === 'present') {
-        $stmt = $pdo->prepare(
-            "UPDATE students
+        $stmt = $pdo->prepare("UPDATE students
              SET attendance_status = 'present', attendance_time = NOW(), marked_by = :marked_by
-             WHERE id = :id"
-        );
-        $stmt->execute([
-            'id' => $studentId,
-            'marked_by' => 'admin:' . $_SESSION['admin_username'],
-        ]);
+             WHERE id = :id");
+        $stmt->execute(['id' => $studentId, 'marked_by' => 'admin:' . $_SESSION['admin_username'],]);
     } else {
-        $stmt = $pdo->prepare(
-            "UPDATE students
+        $stmt = $pdo->prepare("UPDATE students
              SET attendance_status = 'pending', attendance_time = NULL, marked_by = NULL
-             WHERE id = :id"
-        );
+             WHERE id = :id");
         $stmt->execute(['id' => $studentId]);
     }
 
-    $fetch = $pdo->prepare(
-        'SELECT id, registration_number, full_name, attendance_status, attendance_time, marked_by
-         FROM students WHERE id = :id'
-    );
+    $fetch = $pdo->prepare('SELECT id, registration_number, full_name, attendance_status, attendance_time, marked_by
+         FROM students WHERE id = :id');
     $fetch->execute(['id' => $studentId]);
 
     echo json_encode(['success' => true, 'student' => $fetch->fetch()]);

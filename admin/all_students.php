@@ -37,7 +37,24 @@ requireAdminLogin();
 
     <section class="panel-section">
         <h2 class="section-title">Student All Data</h2>
-
+        <div class="table-container" style="height: 400px; overflow-y: auto;">
+            <table class="students-table" id="students-table">
+                <thead>
+                    <tr>
+                        <th>Registration Number</th>
+                        <th>Full Name</th>
+                        <th>Course</th>
+                        <th>Faculty</th>
+                        <th>Batch</th>
+                        <th>Attendance Status</th>
+                        <th>Attendance Time</th>
+                        <th>Marked By</th>
+                    </tr>
+                </thead>
+                <tbody id="students-table-body">
+                    <!-- Student rows will be populated here by JavaScript -->
+                </tbody>
+            </table>
     </section>
 
     </main>

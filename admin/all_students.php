@@ -33,8 +33,14 @@ requireAdminLogin();
         </div>
     </header>
 
+    <main class="admin-main" style="max-width: 90%;">
 
+    <section class="panel-section">
+        <h2 class="section-title">Student All Data</h2>
 
+    </section>
+
+    </main>
 </div>
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
 </body>

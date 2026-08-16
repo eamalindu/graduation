@@ -41,9 +41,9 @@ requireAdminLogin();
                     <span class="stat-card__label">Total</span>
                 </a>
             </div>
-            <div class="stat-card">
+            <div class="stat-card"><a href="present_students.php">
                 <span class="stat-card__value" id="stat-present">—</span>
-                <span class="stat-card__label">Present</span>
+                    <span class="stat-card__label">Present</span></a>
             </div>
             <div class="stat-card">
                 <span class="stat-card__value" id="stat-pending">—</span>

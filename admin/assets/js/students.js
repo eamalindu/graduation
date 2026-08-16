@@ -17,6 +17,12 @@ window.addEventListener('DOMContentLoaded', () => {
                         <td class="student-row__status"> ${student.marked_by ?? '-'}</td>
                     </tr>
                 `).join('');
+
+                new DataTable('#students-table', {
+                    pageLength: 10,
+                    searching: true,
+                    ordering: true
+                });
             } else {
                 studentList.innerHTML = '<p class="empty-note">No students found.</p>';
             }

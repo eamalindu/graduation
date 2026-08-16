@@ -43,5 +43,6 @@ requireAdminLogin();
     </main>
 </div>
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
+<script src="assets/js/students.js"></script>
 </body>
 </html>

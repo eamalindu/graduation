@@ -208,4 +208,5 @@
 .students-table td, th {
   border: 1px solid var(--border);
   padding: 8px;
+  text-wrap: nowrap; white-space: nowrap;
 }

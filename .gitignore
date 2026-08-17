@@ -6,4 +6,3 @@ vendor/**
 /admin/migration_2_admin.sql
 /admin/README.md
 /admin/schema.sql
-/test/

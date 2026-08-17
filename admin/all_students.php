@@ -39,7 +39,7 @@ requireAdminLogin();
     <main class="admin-main" style="max-width: 90%;">
 
         <section class="panel-section">
-            <h2 class="section-title">Student All Data</h2>
+            <h2 class="section-title" style="margin-bottom: 40px">Student All Data</h2>
             <div class="table-container">
                 <table class="students-table" id="students-table">
                     <thead>

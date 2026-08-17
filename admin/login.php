@@ -101,7 +101,7 @@ $csrfToken = csrfToken();
                 </div>
 
                 <?php if ($loginError): ?>
-                    <div class="message"><?= htmlspecialchars($loginError, ENT_QUOTES) ?></div>
+                    <div class="message message--error"><?= htmlspecialchars($loginError, ENT_QUOTES) ?></div>
                 <?php endif; ?>
 
                 <button type="submit" class="btn btn--primary">Sign In</button>

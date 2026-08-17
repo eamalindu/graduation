@@ -23,7 +23,7 @@ try {
 
     $stmt = $pdo->prepare('SELECT registration_number, full_name, course, faculty, batch, attendance_status, attendance_time
          FROM students
-         WHERE UPPER(registration_number) = UPPER(:reg_number)
+         WHERE registration_number = :reg_number
          LIMIT 1');
     $stmt->execute(['reg_number' => $regNumber]);
     $student = $stmt->fetch();

@@ -110,7 +110,7 @@ $csrfToken = csrfToken();
     </main>
 
     <footer class="footer">
-        <p>Metropolitan College</p>
+        <p>Powered by <a href="https://pixelbros.online/" target="_blank">Pixelbros</a></p>
     </footer>
 
 </div>

@@ -59,10 +59,12 @@ requireAdminLogin();
                     </tbody>
                 </table>
         </section>
+        <button id="download-btn">Export Data to Excel</button>
 
     </main>
 </div>
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.datatables.net/3.0.0/js/dataTables.js"></script>
 <script src="assets/js/students.js"></script>
 </body>

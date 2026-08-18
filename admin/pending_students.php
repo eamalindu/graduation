@@ -39,7 +39,7 @@ requireAdminLogin();
     <main class="admin-main" style="max-width: 90%;">
 
         <section class="panel-section">
-            <h2 class="section-title" style="margin-bottom: 40px">Student All Data</h2>
+            <h2 class="section-title" style="margin-bottom: 40px">Pending Student Data</h2>
             <div class="table-container">
                 <table class="students-table" id="students-table">
                     <thead>
@@ -58,15 +58,12 @@ requireAdminLogin();
                     <!-- Student rows will be populated here by JavaScript -->
                     </tbody>
                 </table>
-                <button id="download-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download-icon lucide-download"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>&nbsp;Export Data to Excel</button>
-
         </section>
 
     </main>
 </div>
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.datatables.net/3.0.0/js/dataTables.js"></script>
-<script src="assets/js/students.js"></script>
+<script src="assets/js/pending_students.js"></script>
 </body>
 </html>

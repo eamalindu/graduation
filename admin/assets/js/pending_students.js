@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', () => {
 
-    const students = fetch('api/students.php')
+    const students = fetch('api/pending.php')
         .then(response => response.json())
         .then(data => {
             const studentList = document.getElementById('students-table-body');
@@ -31,40 +31,3 @@ window.addEventListener('DOMContentLoaded', () => {
             studentList.innerHTML = '<p class="empty-note">Error loading students.</p>';
         });
 })
-
-// 1. Add the "async" keyword before the arrow function parameters
-document.getElementById('download-btn').addEventListener('click', async () => {
-    try {
-        // 2. Await the network fetch request
-        const response = await fetch('api/students.php');
-
-        // 3. Await the parsing of the network response body into usable JSON
-        const data = await response.json();
-
-        // 4. Extract your student array from the parsed response object
-        const jsonData = data.students;
-
-        // Ensure your array actually contains data before generating the sheet
-        if (!jsonData || jsonData.length === 0) {
-            alert("No student records found to export.");
-            return;
-        }
-
-        // 5. Convert JSON data into a SheetJS worksheet object
-        const worksheet = XLSX.utils.json_to_sheet(jsonData);
-
-        // Create a brand new, empty workbook container
-        const workbook = XLSX.utils.book_new();
-
-        // Append your worksheet to the workbook container and name the tab
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Students | Graduation 2026");
-
-        // Generate the physical file and trigger an instant browser download
-        XLSX.writeFile(workbook, "Student_Records_Graduation_2026.xlsx", { compression: true });
-
-    } catch (error) {
-        // Catch network errors or JSON parsing bugs safely
-        console.error("Failed to export student data:", error);
-        alert("An error occurred while downloading the file.");
-    }
-});

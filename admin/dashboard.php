@@ -45,9 +45,9 @@ requireAdminLogin();
                 <span class="stat-card__value" id="stat-present">—</span>
                     <span class="stat-card__label">Present</span></a>
             </div>
-            <div class="stat-card">
+            <div class="stat-card"><a href="pending_students.php">
                 <span class="stat-card__value" id="stat-pending">—</span>
-                <span class="stat-card__label">Pending</span>
+                    <span class="stat-card__label">Pending</span></a>
             </div>
             <div class="stat-card">
                 <span class="stat-card__value" id="stat-percent">—</span>

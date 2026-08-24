@@ -1,0 +1,20 @@
+{
+    "name": "eamalindu/graduation",
+    "description": "Mobile-first PHP + MySQL attendance system for Metropolitan College's graduation ceremony",
+    "type": "project",
+    "require": {
+        "php": ">=7.4"
+    },
+    "keywords": [
+        "attendance",
+        "graduation",
+        "php",
+        "mysql"
+    ],
+    "authors": [
+        {
+            "name": "eamalindu",
+            "email": "contact@example.com"
+        }
+    ]
+}

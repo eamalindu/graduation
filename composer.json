@@ -2,6 +2,7 @@
     "name": "eamalindu/graduation",
     "description": "Mobile-first PHP + MySQL attendance system for Metropolitan College's graduation ceremony",
     "type": "project",
+    "license": "proprietary",
     "require": {
         "php": ">=7.4"
     },
@@ -14,7 +15,7 @@
     "authors": [
         {
             "name": "eamalindu",
-            "email": "contact@example.com"
+            "email": "malindu@pixelbros.online"
         }
     ]
 }

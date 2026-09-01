@@ -45,7 +45,7 @@ requireAdminLogin();
 
 
 
-
+    <script src="assets/js/charts.js"></script>
 </div>
 </body>
 </html>

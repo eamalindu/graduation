@@ -23,6 +23,17 @@ requireAdminLogin();
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
+    <style>
+        .highcharts-root{
+            font-family: inherit!important;
+        }
+        .row{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
 <div class="admin-page">
@@ -42,9 +53,31 @@ requireAdminLogin();
         </div>
     </header>
 
+    <div class="row">
+    <div id="" style="width: 45%;height: 400px" >
+        <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
+        <table class="students-table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Target</th>
+                <th>Registered</th>
+                <th>Pending</th>
+                <th>%</th>
+            </tr>
+            </thead>
+            <tbody id="programs-table-body">
+            </tbody>
+        </table>
+    </div>
+
+        <div id="programs-pie-chart" style="width: 50%"></div>
+
+    </div>
 
 
 
+    <script src="highcharts-11.4.3/highcharts.js"></script>
     <script src="assets/js/charts.js"></script>
 </div>
 </body>

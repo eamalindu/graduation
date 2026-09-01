@@ -61,6 +61,26 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     generateListOfPrograms(programStatistics);
 
+
+    document.querySelector('.highcharts-color-0').addEventListener('click', () => {
+        scale('bg-rangamal');
+    });
+
+    document.querySelector('.highcharts-color-1').addEventListener('click', () => {
+        scale('bg-nethmini');
+    });
+
+    document.querySelector('.highcharts-color-2').addEventListener('click', () => {
+        scale('bg-divani');
+    });
+
+    document.querySelector('.highcharts-color-3').addEventListener('click', () => {
+        scale('bg-dilrukshi');
+    });
+
+    document.querySelector('.highcharts-color-4').addEventListener('click', () => {
+        scale('bg-chathurya');
+    });
 });
 
 
@@ -390,3 +410,47 @@ const generateMonochromePieChart = (
     });
 
 };
+
+//testing
+let selectedCard = null;
+
+const scale = (div) => {
+    const selectedDivs = document.querySelectorAll('.' + div);
+    const otherDivs = document.querySelectorAll('.program-stat-card');
+
+    // Click the same segment again → show all cards
+    if (selectedCard === div) {
+        otherDivs.forEach(card => {
+            card.classList.remove('selected', 'grayscale');
+            card.style.scale = '1';
+        });
+
+        selectedCard = null;
+        return;
+    }
+
+    // Reset all cards
+    otherDivs.forEach(card => {
+        card.classList.remove('selected');
+        card.classList.add('grayscale');
+        card.style.scale = '0.99';
+    });
+
+    // Select the matching card
+    selectedDivs.forEach(card => {
+        card.classList.remove('grayscale');
+        card.classList.add('selected');
+        card.style.scale = '1.01';
+
+        // Scroll to the selected card
+        card.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+        });
+    });
+
+    // Remember selected card
+    selectedCard = div;
+};
+

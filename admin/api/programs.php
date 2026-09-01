@@ -11,7 +11,7 @@ requireAdminLoginApi();
 try {
     $pdo = getDbConnection();
 
-    $students = $pdo->query("SELECT id, name
+    $students = $pdo->query("SELECT id, name,assigned
          FROM program
          ORDER BY id")->fetchAll();
 

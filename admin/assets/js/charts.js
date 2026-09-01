@@ -1,77 +1,334 @@
-let students;
+let student;
+let program;
 
-let programs;
+const TARGETS = [
+    { name: 'Rangamal', target: 125 },
+    { name: 'Nethmini', target: 200 },
+    { name: 'Divani', target: 40 },
+    { name: 'Dilrukshi', target: 40 },
+    { name: 'Chathurya', target: 40 }
+];
 
-window.addEventListener('DOMContentLoaded',()=>{
+window.addEventListener('DOMContentLoaded', async () => {
 
-    students = fetch('api/students.php')
-        .then(response => response.json())
-        .then(data => {
-        })
+    // Get students
+    const studentResponse = await fetch('api/students.php');
+    student = await studentResponse.json();
 
-    programs = fetch('api/programs.php')
+    // Get programs
+    const programResponse = await fetch('api/programs.php');
+    program = await programResponse.json();
 
-    generateMonochromePieChart('programs-pie-chart', 'Programs Distribution', 'Target', TARGETS.map(target => ({name: target.name, y: target.target})));
-    generateStatTable();
 
-})
+    /*
+     * Generate counsellor statistics
+     */
+    const statistics = generateCounsellorStatistics(
+        student.students,
+        program.programs
+    );
 
-const TARGETS = [{name:'Rangamal',target:125},{name: 'Nethmini',target: 200},{name:'Divani',target: 40},{name:'Dilrukshi',target:40},{name:'Chathurya',target:40}];
 
-const generateMonochromePieChart = (elementID, title, axisName, series) => {
+    /*
+     * Generate statistics table
+     */
+    generateStatTable(statistics);
+
+
+    /*
+     * Generate pie chart
+     */
+    generateMonochromePieChart(
+        'programs-pie-chart',
+        'Programs Distribution',
+        'Registered',
+        statistics.map(stat => ({
+            name: stat.name,
+            y: stat.registered
+        }))
+    );
+
+
+    /*
+     * Generate program cards
+     *
+     * Only show programs which have students
+     */
+    const programStatistics = generateProgramStatistics(
+        student.students,
+        program.programs
+    ).filter(program => program.count > 0);
+
+    generateListOfPrograms(programStatistics);
+
+});
+
+
+/* =========================================================
+   COUNSELLOR STATISTICS
+========================================================= */
+
+const generateCounsellorStatistics = (students, programs) => {
+
+    return TARGETS.map(target => {
+
+        /*
+         * Get programs assigned to this counsellor
+         */
+        const assignedPrograms = programs.filter(
+            program => program.assigned === target.name
+        );
+
+
+        /*
+         * Get program names assigned to this counsellor
+         */
+        const programNames = assignedPrograms.map(
+            program => program.name
+        );
+
+
+        /*
+         * Count students registered under
+         * those programs
+         */
+        const registered = students.filter(
+            student => programNames.includes(student.program)
+        ).length;
+
+
+        /*
+         * Calculate pending
+         */
+        const pending = Math.max(
+            target.target - registered,
+            0
+        );
+
+
+        /*
+         * Calculate percentage
+         */
+        const percentage = target.target > 0
+            ? (registered / target.target) * 100
+            : 0;
+
+
+        return {
+            name: target.name,
+            target: target.target,
+            registered: registered,
+            pending: pending,
+            percentage: percentage
+        };
+
+    });
+};
+
+
+/* =========================================================
+   STATISTICS TABLE
+========================================================= */
+
+const generateStatTable = (statistics) => {
+
+    const tbody = document.getElementById(
+        'programs-table-body'
+    );
+
+    tbody.innerHTML = "";
+
+
+    statistics.forEach(stat => {
+
+        const row = document.createElement('tr');
+
+
+        row.innerHTML = `
+            <td>
+                ${stat.name}
+            </td>
+
+            <td>
+                ${stat.target}
+            </td>
+
+            <td>
+                ${stat.registered}
+            </td>
+
+            <td>
+                ${stat.pending}
+            </td>
+
+            <td>
+                ${stat.percentage.toFixed(1)}%
+            </td>
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+};
+
+
+/* =========================================================
+   PROGRAM STATISTICS
+========================================================= */
+
+const generateProgramStatistics = (students, programs) => {
+
+    return programs.map(program => {
+
+        const count = students.filter(
+            student => student.program === program.name
+        ).length;
+
+
+        return {
+            id: program.id,
+            name: program.name,
+            assigned: program.assigned,
+            count: count
+        };
+
+    });
+
+};
+
+
+/* =========================================================
+   PROGRAM CARDS
+========================================================= */
+
+const generateListOfPrograms = (programs) => {
+
+    const container = document.getElementById(
+        'programs-stat'
+    );
+
+    container.innerHTML = "";
+
+
+    programs.forEach(program => {
+
+        const card = document.createElement('div');
+
+        card.classList.add(
+            'program-stat-card'
+        );
+
+
+        card.innerHTML = `
+
+            <div class="program-stat-name">
+                ${program.name}
+            </div>
+
+            <div class="program-stat-assigned">
+                ${program.assigned}
+            </div>
+
+            <div class="program-stat-count">
+                ${program.count}
+            </div>
+
+            <div class="program-stat-label">
+                Students
+            </div>
+
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
+};
+
+
+/* =========================================================
+   PIE CHART
+========================================================= */
+
+const generateMonochromePieChart = (
+    elementID,
+    title,
+    axisName,
+    series
+) => {
 
     const totalAmount = series.reduce(
         (total, point) => total + point.y,
         0
     );
 
+
     const chartColors = [
-        '#3B82F6', // Royal Blue (Primary)
-        '#6366F1', // Indigo (Secondary)
-        '#8B5CF6', // Purple
-        '#EC4899', // Pink / Magenta
-        '#10B981', // Emerald Teal
-        '#F59E0B'  // Warm Amber
+        '#3B82F6',
+        '#6366F1',
+        '#8B5CF6',
+        '#EC4899',
+        '#10B981',
+        '#F59E0B'
     ];
+
 
     Highcharts.chart(elementID, {
 
         colors: chartColors,
+
 
         chart: {
             type: 'pie',
             backgroundColor: 'white'
         },
 
+
         title: {
             text: title,
+
             style: {
                 color: '#111827'
             }
         },
 
+
         subtitle: {
             text: `Total ${axisName} : ${totalAmount}`,
+
             style: {
                 color: '#6B7280'
             }
         },
 
+
         exporting: {
             enabled: false
         },
 
+
         tooltip: {
+
             useHTML: true,
 
             headerFormat:
-                `<span style="font-size:10px">${axisName}</span><table>`,
+                `<span style="font-size:10px">
+                    ${axisName}
+                </span>
+                <table>`,
 
             pointFormat:
                 `<tr>
-                    <td style="padding:0">{point.name}: </td>
+                    <td style="padding:0">
+                        {point.name}:
+                    </td>
+
                     <td style="padding:0">
                         <b>&nbsp;{point.y}</b>
+
                         <span style="color:#6B7280">
                             ({point.percentage:.1f}%)
                         </span>
@@ -85,14 +342,18 @@ const generateMonochromePieChart = (elementID, title, axisName, series) => {
             }
         },
 
+
         plotOptions: {
 
             pie: {
 
                 allowPointSelect: true,
+
                 cursor: 'pointer',
 
+
                 dataLabels: {
+
                     enabled: true,
 
                     format:
@@ -107,25 +368,12 @@ const generateMonochromePieChart = (elementID, title, axisName, series) => {
             }
         },
 
+
         series: [{
             name: axisName,
             data: series
         }]
+
     });
+
 };
-
-const generateStatTable = ()=>{
-    document.getElementById('programs-table-body').innerHTML ="";
-    TARGETS.forEach(element => {
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${element.name}</td>
-            <td>${element.target}</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-        `;
-        document.getElementById('programs-table-body').appendChild(row);
-    })
-}

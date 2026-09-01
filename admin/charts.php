@@ -33,6 +33,42 @@ requireAdminLogin();
             justify-content: center;
             align-items: center;
         }
+        #programs-stat {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .program-stat-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 10px;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .program-stat-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            line-height: 1.4;
+        }
+
+        .program-stat-count {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 15px;
+        }
+
+        .program-stat-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
     </style>
 </head>
 <body>
@@ -54,26 +90,29 @@ requireAdminLogin();
     </header>
 
     <div class="row">
-    <div id="" style="width: 45%;height: 400px" >
-        <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
-        <table class="students-table">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Target</th>
-                <th>Registered</th>
-                <th>Pending</th>
-                <th>%</th>
-            </tr>
-            </thead>
-            <tbody id="programs-table-body">
-            </tbody>
-        </table>
-    </div>
+        <div style="width: 40%;padding-left: 20px;height: calc( 100vh - 50px)">
+            <div id="" style="width: 100%;" >
+                <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
+                <table class="students-table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Target</th>
+                        <th>Registered</th>
+                        <th>Pending</th>
+                        <th>%</th>
+                    </tr>
+                    </thead>
+                    <tbody id="programs-table-body">
+                    </tbody>
+                </table>
+            </div>
 
-        <div id="programs-pie-chart" style="width: 50%"></div>
+            <div id="programs-pie-chart" style="margin-top: 15px"></div>
 
-    </div>
+        </div>
+        <div id="programs-stat" style="width: 60%;padding: 20px;overflow: auto;height: calc( 100vh - 50px)"></div>
+        </div>
 
 
 

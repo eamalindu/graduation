@@ -217,12 +217,13 @@ $csrfToken = csrfToken();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#7A1F2B">
 <meta name="robots" content="noindex, nofollow">
-<title>Import Roster — Metropolitan College Admin</title>
+    <title>Students Upload | Graduation Attendance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="icon" type="image/ico" href="../favicon.ico"/>
 </head>
 <body>
 <div class="admin-page">

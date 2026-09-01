@@ -220,15 +220,28 @@ const generateListOfPrograms = (programs) => {
             'program-stat-card'
         );
 
+        if(program.assigned=="Rangamal") {
+            card.classList.add('bg-rangamal');
+        }
+
+        if (program.assigned=="Nethmini") {
+            card.classList.add('bg-nethmini');
+        }
+
+        if (program.assigned=="Divani") {
+            card.classList.add('bg-divani');
+        }
+        if (program.assigned=="Dilrukshi") {
+            card.classList.add('bg-dilrukshi');
+        }
+        if (program.assigned=="Chathurya") {
+            card.classList.add('bg-chathurya');
+        }
 
         card.innerHTML = `
 
             <div class="program-stat-name">
                 ${program.name}
-            </div>
-
-            <div class="program-stat-assigned">
-                ${program.assigned}
             </div>
 
             <div class="program-stat-count">
@@ -269,7 +282,7 @@ const generateMonochromePieChart = (
     const chartColors = [
         '#3B82F6',
         '#6366F1',
-        '#8B5CF6',
+        '#F59E0B',
         '#EC4899',
         '#10B981',
         '#F59E0B'

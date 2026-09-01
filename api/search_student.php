@@ -21,7 +21,7 @@ if ($regNumber === '') {
 try {
     $pdo = getDbConnection();
 
-    $stmt = $pdo->prepare('SELECT registration_number, full_name, course, faculty, batch, attendance_status, attendance_time
+    $stmt = $pdo->prepare('SELECT registration_number, full_name, email, program, registered_date, attendance_status, attendance_time
          FROM students
          WHERE registration_number = :reg_number
          LIMIT 1');

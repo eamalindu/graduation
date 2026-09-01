@@ -22,6 +22,20 @@ requireAdminLogin();
     <link rel="stylesheet" href="assets/css/admin.css">
 
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
+    <style>
+        table {
+            width: 100% !important;
+            max-width: 100%;
+            table-layout: auto;
+        }
+
+        table th,
+        table td {
+            white-space: normal !important;
+            overflow-wrap: break-word;
+            word-break: normal;
+        }
+    </style>
 </head>
 <body>
 <div class="admin-page">
@@ -40,15 +54,15 @@ requireAdminLogin();
 
         <section class="panel-section">
             <h2 class="section-title" style="margin-bottom: 40px">Student All Data</h2>
-            <div class="table-container">
-                <table class="students-table" id="students-table">
+            <div class="table-container w-100">
+                <table class="students-table w-100" id="students-table">
                     <thead>
                     <tr>
                         <th>Registration Number</th>
                         <th>Full Name</th>
-                        <th>Course</th>
-                        <th>Faculty</th>
-                        <th>Batch</th>
+                        <th>email</th>
+                        <th>Programme</th>
+                        <th>Registered Date</th>
                         <th>Attendance Status</th>
                         <th>Attendance Time</th>
                         <th>Marked By</th>

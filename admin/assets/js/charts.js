@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     programs = fetch('api/programs.php')
 
     generateMonochromePieChart('programs-pie-chart', 'Programs Distribution', 'Target', TARGETS.map(target => ({name: target.name, y: target.target})));
+    generateStatTable();
 
 })
 
@@ -25,12 +26,12 @@ const generateMonochromePieChart = (elementID, title, axisName, series) => {
     );
 
     const chartColors = [
-        '#2563EB', // Blue
-        '#7C3AED', // Violet
-        '#0891B2', // Cyan
-        '#059669', // Emerald
-        '#D97706', // Amber
-        '#DC2626'  // Red
+        '#3B82F6', // Royal Blue (Primary)
+        '#6366F1', // Indigo (Secondary)
+        '#8B5CF6', // Purple
+        '#EC4899', // Pink / Magenta
+        '#10B981', // Emerald Teal
+        '#F59E0B'  // Warm Amber
     ];
 
     Highcharts.chart(elementID, {
@@ -114,6 +115,17 @@ const generateMonochromePieChart = (elementID, title, axisName, series) => {
 };
 
 const generateStatTable = ()=>{
+    document.getElementById('programs-table-body').innerHTML ="";
+    TARGETS.forEach(element => {
 
-
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${element.name}</td>
+            <td>${element.target}</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+        `;
+        document.getElementById('programs-table-body').appendChild(row);
+    })
 }

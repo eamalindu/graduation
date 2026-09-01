@@ -17,7 +17,7 @@ try {
 
     echo json_encode(['success' => true, 'programs' => $students]);
 } catch (Throwable $e) {
-    error_log('student data error: ' . $e->getMessage());
+    error_log('programs data error: ' . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Could not load students.']);
+    echo json_encode(['success' => false, 'message' => 'Could not load programs.']);
 }

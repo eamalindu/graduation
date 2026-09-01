@@ -54,8 +54,8 @@ requireAdminLogin();
     </header>
 
     <div class="row">
-    <div id="programs-pie-chart" style="width: 50%"></div>
-    <div id="" style="width: 50%">
+    <div id="" style="width: 45%;height: 400px" >
+        <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
         <table class="students-table">
             <thead>
             <tr>
@@ -70,6 +70,8 @@ requireAdminLogin();
             </tbody>
         </table>
     </div>
+
+        <div id="programs-pie-chart" style="width: 50%"></div>
 
     </div>
 

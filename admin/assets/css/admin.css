@@ -1,61 +1,95 @@
+/* =========================================================
+   Admin Page
+   ========================================================= */
+
 .admin-page {
     min-height: 100vh;
-    background: var(--white);
     display: flex;
     flex-direction: column;
+    background: var(--white);
 }
+
+/* =========================================================
+   Top Bar
+   ========================================================= */
 
 .admin-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 18px;
     padding: 14px 20px;
     border-bottom: 1px solid var(--border);
     font-family: var(--font-body);
+}
+
+.admin-topbar a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .admin-topbar__brand {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 16px;
     color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
 }
 
-.mini-seal {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: var(--white);
+.admin-topbar__nav {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-weight: 700;
+    gap: 18px;
     font-size: 13px;
-    flex-shrink: 0;
+}
+
+.admin-topbar__nav a {
+    color: var(--ink-muted);
+    font-weight: 600;
+}
+
+.admin-topbar__nav a:hover,
+.admin-topbar__nav a.is-active {
+    color: var(--accent);
 }
 
 .admin-topbar__user {
     display: flex;
     align-items: center;
     gap: 14px;
-    font-size: 13px;
     color: var(--ink-muted);
+    font-size: 13px;
 }
 
 .admin-topbar__logout {
     color: var(--accent);
-    text-decoration: none;
     font-weight: 600;
 }
 
 .admin-topbar__logout:hover {
     text-decoration: underline;
 }
+
+.mini-seal {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   Main Content
+   ========================================================= */
 
 .admin-main {
     flex: 1;
@@ -65,64 +99,102 @@
     padding: 24px 18px 48px;
 }
 
-/* Stats */
+/* =========================================================
+   Statistics
+   ========================================================= */
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
     margin-bottom: 30px;
 }
 
-.stats-grid a, .admin-topbar a {
-    text-decoration: none;
+.stats-grid a {
     color: inherit;
-}
-
-@media (min-width: 640px) {
-    .stats-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
+    text-decoration: none;
 }
 
 .stat-card {
-    border: 1px solid var(--border);
     padding: 18px 14px;
+    border: 1px solid var(--border);
     text-align: center;
 }
 
 .stat-card__value {
     display: block;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 30px;
     color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 700;
 }
 
 .stat-card__label {
     display: block;
     margin-top: 4px;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     color: var(--ink-muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-/* Sections */
+/* =========================================================
+   Sections
+   ========================================================= */
 
 .panel-section {
     margin-bottom: 34px;
 }
 
 .section-title {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 19px;
     margin: 0 0 14px;
     color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
 }
 
-/* Search */
+.section-title--small {
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+.section-note {
+    max-width: 56ch;
+    margin: 0 0 18px;
+    color: var(--ink-muted);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   Import
+   ========================================================= */
+
+.import-form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.file-input {
+    color: var(--ink-muted);
+    font-family: var(--font-body);
+    font-size: 13.5px;
+}
+
+.skipped-list {
+    margin: 10px 0 0;
+    padding-left: 20px;
+    color: var(--ink-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   Search
+   ========================================================= */
 
 .admin-search-form {
     display: flex;
@@ -136,16 +208,16 @@
 .btn--inline {
     width: auto;
     margin-top: 0;
-    white-space: nowrap;
-    padding-left: 20px;
     padding-right: 20px;
+    padding-left: 20px;
+    white-space: nowrap;
 }
 
 .empty-note {
+    margin: 0;
+    padding: 14px 0;
     color: var(--ink-muted);
     font-size: 14px;
-    padding: 14px 0;
-    margin: 0;
 }
 
 .search-results {
@@ -162,32 +234,36 @@
 }
 
 .result-row__name {
-    font-weight: 600;
     font-size: 14.5px;
+    font-weight: 600;
 }
 
 .result-row__reg {
+    margin-top: 2px;
+    color: var(--ink-muted);
     font-family: var(--font-mono);
     font-size: 12.5px;
-    color: var(--ink-muted);
-    margin-top: 2px;
 }
 
 .result-row__meta {
-    font-size: 12px;
-    color: var(--ink-muted);
     margin-top: 4px;
+    color: var(--ink-muted);
+    font-size: 12px;
 }
+
+/* =========================================================
+   Toggle Buttons
+   ========================================================= */
 
 .btn-toggle {
     flex-shrink: 0;
+    padding: 9px 14px;
     border: 1.5px solid var(--accent);
+    border-radius: 4px;
     background: var(--white);
     color: var(--accent);
     font-size: 13px;
     font-weight: 600;
-    padding: 9px 14px;
-    border-radius: 4px;
     cursor: pointer;
 }
 
@@ -197,9 +273,9 @@
 }
 
 .btn-toggle--undo {
+    border-color: var(--border);
     background: var(--white);
     color: var(--ink-muted);
-    border-color: var(--border);
 }
 
 .btn-toggle:disabled {
@@ -212,7 +288,9 @@
     outline-offset: 2px;
 }
 
-/* Recent list */
+/* =========================================================
+   Recent List
+   ========================================================= */
 
 .recent-list {
     border-top: 1px solid var(--border);
@@ -233,46 +311,55 @@
 }
 
 .recent-row__reg {
+    color: var(--ink-muted);
     font-family: var(--font-mono);
     font-size: 12px;
-    color: var(--ink-muted);
 }
 
 .recent-row__time {
-    font-size: 12.5px;
     color: var(--ink-muted);
+    font-size: 12.5px;
     white-space: nowrap;
 }
+
+/* =========================================================
+   Students Table
+   ========================================================= */
 
 .students-table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
-    overflow: auto;
 }
 
-.students-table td, th {
-    border: 1px solid var(--border);
+.students-table th,
+.students-table td {
     padding: 8px;
-    text-wrap: nowrap;
+    border: 1px solid var(--border);
     white-space: nowrap;
 }
+
+/* =========================================================
+   Download Button
+   ========================================================= */
 
 #download-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto;
     padding: 6px 12px;
-    background-color: #107c41; /* Official Microsoft Excel Green */
-    color: #ffffff;
+    border: 0;
+    border-radius: 6px;
+    background-color: #107c41;
+    color: #fff;
     font-family: inherit;
     font-weight: 600;
-    border: none;
-    border-radius: 6px;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(16, 124, 65, 0.2);
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    margin: 0 auto;
+    box-shadow: 0 2px 5px rgb(16 124 65 / 20%);
+    transition:
+            background-color 0.2s ease,
+            transform 0.1s ease;
 }
 
 #download-btn:hover {
@@ -281,4 +368,49 @@
 
 #download-btn:active {
     transform: scale(0.98);
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (min-width: 640px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 639px) {
+    .admin-topbar {
+        align-items: flex-start;
+    }
+
+    .admin-topbar__nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+    }
+
+    .admin-topbar__user {
+        margin-left: auto;
+    }
+
+    .admin-search-form {
+        align-items: stretch;
+    }
+
+    .admin-search-form .field-input {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .result-row,
+    .recent-row {
+        align-items: flex-start;
+    }
+
+    .students-table {
+        min-width: 600px;
+    }
 }

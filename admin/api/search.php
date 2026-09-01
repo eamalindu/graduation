@@ -18,7 +18,7 @@ if ($query === '') {
 try {
     $pdo = getDbConnection();
 
-    $stmt = $pdo->prepare('SELECT id, registration_number, full_name, course, faculty, batch, attendance_status, attendance_time, marked_by
+    $stmt = $pdo->prepare('SELECT id, registration_number, full_name, email, program, registered_date, attendance_status, attendance_time, marked_by
          FROM students
          WHERE registration_number LIKE :query1 OR full_name LIKE :query2
          ORDER BY full_name

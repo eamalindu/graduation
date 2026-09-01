@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             detailReg.textContent = student.registration_number;
             detailName.textContent = student.full_name;
-            detailCourse.textContent = student.course || '—';
-            detailFaculty.textContent = student.faculty || '—';
-            detailBatch.textContent = student.batch || '—';
+            detailCourse.textContent = student.program || '—';
+            detailFaculty.textContent = student.email || '—';
+            detailBatch.textContent = student.registered_date || '—';
 
             studentDetails.hidden = false;
 

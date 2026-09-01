@@ -57,15 +57,15 @@
                     <span class="record__value" id="detail-name"></span>
                 </div>
                 <div class="record__row">
-                    <span class="record__label">Course</span>
+                    <span class="record__label">Program</span>
                     <span class="record__value" id="detail-course"></span>
                 </div>
                 <div class="record__row">
-                    <span class="record__label">Faculty</span>
+                    <span class="record__label">email</span>
                     <span class="record__value" id="detail-faculty"></span>
                 </div>
                 <div class="record__row">
-                    <span class="record__label">Batch</span>
+                    <span class="record__label">Registered Date</span>
                     <span class="record__value" id="detail-batch"></span>
                 </div>
 

@@ -14,8 +14,7 @@ requireAdminLogin();
     <title>Dashboard | Graduation Attendance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
@@ -27,6 +26,11 @@ requireAdminLogin();
         <div class="admin-topbar__brand">
             <span>Admin &middot; Attendance</span>
         </div>
+        <nav class="admin-topbar__nav">
+            <a href="dashboard.php" class="is-active">Dashboard</a>
+            <a href="import.php" >Import Students</a>
+            <a href="charts.php">Charts</a>
+        </nav>
         <div class="admin-topbar__user">
             <span><?= htmlspecialchars($_SESSION['admin_name'], ENT_QUOTES) ?></span>
             <a href="logout.php" class="admin-topbar__logout">Log out</a>
@@ -42,11 +46,11 @@ requireAdminLogin();
                 </a>
             </div>
             <div class="stat-card"><a href="present_students.php">
-                <span class="stat-card__value" id="stat-present">—</span>
+                    <span class="stat-card__value" id="stat-present">—</span>
                     <span class="stat-card__label">Present</span></a>
             </div>
             <div class="stat-card"><a href="pending_students.php">
-                <span class="stat-card__value" id="stat-pending">—</span>
+                    <span class="stat-card__value" id="stat-pending">—</span>
                     <span class="stat-card__label">Pending</span></a>
             </div>
             <div class="stat-card">

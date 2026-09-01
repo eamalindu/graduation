@@ -49,6 +49,19 @@ requireAdminLogin();
             flex-direction: column;
             justify-content: space-between;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .program-stat-card.grayscale {
+            filter: grayscale(100%);
+            opacity: 0.6;
+        }
+
+        .program-stat-card.selected {
+            filter: grayscale(0%);
+            opacity: 1;
+            scale: 1.1;
+            z-index: 2;
         }
 
         .program-stat-name {
@@ -68,15 +81,29 @@ requireAdminLogin();
 
             color: #f63b3b !important;
             border-color: #f63b3b;
-
         }
+
+        .bg-rangamal.selected {
+            background: rgb(246 59 59 / 0.1);
+        }
+
         .bg-nethmini{
             border-color: #6366F1;
             color: #6366F1!important;
         }
+
+        .bg-nethmini.selected {
+            background: rgba(99, 102, 241, 0.1)
+        }
+
         .bg-divani{
             border-color: #F59E0B;
             color: #F59E0B!important;
+        }
+
+        .bg-divani.selected {
+            background: rgba(245, 158, 11, 0.1);
+
         }
 
         .bg-dilrukshi{
@@ -84,9 +111,17 @@ requireAdminLogin();
             color: #EC4899!important;
         }
 
+        .bg-dilrukshi.selected {
+            background: rgba(236, 72, 153, 0.1);
+        }
+
         .bg-chathurya{
             border-color: #10B981;
             color: #10B981!important;
+        }
+
+        .bg-chathurya.selected {
+            background: rgba(16, 185, 129, 0.1)
         }
         .program-stat-label {
             font-size: 12px;

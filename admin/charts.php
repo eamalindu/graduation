@@ -66,8 +66,8 @@ requireAdminLogin();
         }
         .bg-rangamal{
 
-            color: #3B82F6 !important;
-            border-color: #3B82F6;
+            color: #f63b3b !important;
+            border-color: #f63b3b;
 
         }
         .bg-nethmini{
@@ -114,6 +114,8 @@ requireAdminLogin();
 
     <div class="row">
         <div style="width: 40%;padding-left: 20px;height: calc( 100vh - 50px)">
+
+            <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
             <div id="" style="width: 100%;" >
                 <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
                 <table class="students-table">
@@ -131,7 +133,7 @@ requireAdminLogin();
                 </table>
             </div>
 
-            <div id="programs-pie-chart" style="margin-top: 15px"></div>
+
 
         </div>
         <div id="programs-stat" style="width: 60%;padding: 20px;overflow: auto;height: calc( 100vh - 50px)"></div>

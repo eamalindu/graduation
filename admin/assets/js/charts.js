@@ -280,7 +280,7 @@ const generateMonochromePieChart = (
 
 
     const chartColors = [
-        '#3B82F6',
+        '#f63b3b',
         '#6366F1',
         '#F59E0B',
         '#EC4899',

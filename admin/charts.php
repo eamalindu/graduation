@@ -41,7 +41,7 @@ requireAdminLogin();
 
         .program-stat-card {
             background: #fff;
-            border: 1px solid #e5e7eb;
+            border: 2px solid #e5e7eb;
             border-radius: 12px;
             padding: 10px;
             min-height: 130px;
@@ -54,17 +54,40 @@ requireAdminLogin();
         .program-stat-name {
             font-size: 14px;
             font-weight: 600;
-            color: #374151;
             line-height: 1.4;
+            color: #343434
         }
 
         .program-stat-count {
             font-size: 32px;
             font-weight: 700;
-            color: #111827;
+
             margin-top: 15px;
         }
+        .bg-rangamal{
 
+            color: #3B82F6 !important;
+            border-color: #3B82F6;
+
+        }
+        .bg-nethmini{
+            border-color: #6366F1;
+            color: #6366F1!important;
+        }
+        .bg-divani{
+            border-color: #F59E0B;
+            color: #F59E0B!important;
+        }
+
+        .bg-dilrukshi{
+            border-color: #EC4899;
+            color: #EC4899!important;
+        }
+
+        .bg-chathurya{
+            border-color: #10B981;
+            color: #10B981!important;
+        }
         .program-stat-label {
             font-size: 12px;
             color: #6b7280;

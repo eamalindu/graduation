@@ -41,7 +41,7 @@ requireAdminLogin();
 
         .program-stat-card {
             background: #fff;
-            border: 1px solid #e5e7eb;
+            border: 2px solid #e5e7eb;
             border-radius: 12px;
             padding: 10px;
             min-height: 130px;
@@ -49,25 +49,102 @@ requireAdminLogin();
             flex-direction: column;
             justify-content: space-between;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .program-stat-card.grayscale {
+            filter: grayscale(100%);
+            opacity: 0.6;
+        }
+
+        .program-stat-card.selected {
+            filter: grayscale(0%);
+            opacity: 1;
+            scale: 1.1;
+            z-index: 2;
         }
 
         .program-stat-name {
             font-size: 14px;
             font-weight: 600;
-            color: #374151;
             line-height: 1.4;
+            color: #343434
         }
 
         .program-stat-count {
             font-size: 32px;
             font-weight: 700;
-            color: #111827;
+
             margin-top: 15px;
         }
+        .bg-rangamal{
 
+            color: #f63b3b !important;
+            border-color: #f63b3b;
+        }
+
+        .bg-rangamal.selected {
+            background: rgb(246 59 59 / 0.1);
+        }
+
+        .bg-nethmini{
+            border-color: #6366F1;
+            color: #6366F1!important;
+        }
+
+        .bg-nethmini.selected {
+            background: rgba(99, 102, 241, 0.1)
+        }
+
+        .bg-divani{
+            border-color: #F59E0B;
+            color: #F59E0B!important;
+        }
+
+        .bg-divani.selected {
+            background: rgba(245, 158, 11, 0.1);
+
+        }
+
+        .bg-dilrukshi{
+            border-color: #EC4899;
+            color: #EC4899!important;
+        }
+
+        .bg-dilrukshi.selected {
+            background: rgba(236, 72, 153, 0.1);
+        }
+
+        .bg-chathurya{
+            border-color: #10B981;
+            color: #10B981!important;
+        }
+
+        .bg-chathurya.selected {
+            background: rgba(16, 185, 129, 0.1)
+        }
         .program-stat-label {
             font-size: 12px;
             color: #6b7280;
+        }
+        /* width */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
@@ -91,6 +168,8 @@ requireAdminLogin();
 
     <div class="row">
         <div style="width: 40%;padding-left: 20px;height: calc( 100vh - 50px)">
+
+            <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
             <div id="" style="width: 100%;" >
                 <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
                 <table class="students-table">
@@ -108,7 +187,7 @@ requireAdminLogin();
                 </table>
             </div>
 
-            <div id="programs-pie-chart" style="margin-top: 15px"></div>
+
 
         </div>
         <div id="programs-stat" style="width: 60%;padding: 20px;overflow: auto;height: calc( 100vh - 50px)"></div>

@@ -4,7 +4,7 @@ let program;
 const TARGETS = [
     { name: 'Rangamal', target: 125 },
     { name: 'Nethmini', target: 200 },
-    { name: 'Divani', target: 40 },
+    { name: 'Kaushalya', target: 40 },
     { name: 'Dilrukshi', target: 40 },
     { name: 'Chathurya', target: 40 }
 ];
@@ -61,6 +61,26 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     generateListOfPrograms(programStatistics);
 
+
+    document.querySelector('.highcharts-color-0').addEventListener('click', () => {
+        scale('bg-rangamal');
+    });
+
+    document.querySelector('.highcharts-color-1').addEventListener('click', () => {
+        scale('bg-nethmini');
+    });
+
+    document.querySelector('.highcharts-color-2').addEventListener('click', () => {
+        scale('bg-divani');
+    });
+
+    document.querySelector('.highcharts-color-3').addEventListener('click', () => {
+        scale('bg-dilrukshi');
+    });
+
+    document.querySelector('.highcharts-color-4').addEventListener('click', () => {
+        scale('bg-chathurya');
+    });
 });
 
 
@@ -220,15 +240,28 @@ const generateListOfPrograms = (programs) => {
             'program-stat-card'
         );
 
+        if(program.assigned=="Rangamal") {
+            card.classList.add('bg-rangamal');
+        }
+
+        if (program.assigned=="Nethmini") {
+            card.classList.add('bg-nethmini');
+        }
+
+        if (program.assigned=="Kaushalya") {
+            card.classList.add('bg-divani');
+        }
+        if (program.assigned=="Dilrukshi") {
+            card.classList.add('bg-dilrukshi');
+        }
+        if (program.assigned=="Chathurya") {
+            card.classList.add('bg-chathurya');
+        }
 
         card.innerHTML = `
 
             <div class="program-stat-name">
                 ${program.name}
-            </div>
-
-            <div class="program-stat-assigned">
-                ${program.assigned}
             </div>
 
             <div class="program-stat-count">
@@ -267,9 +300,9 @@ const generateMonochromePieChart = (
 
 
     const chartColors = [
-        '#3B82F6',
+        '#f63b3b',
         '#6366F1',
-        '#8B5CF6',
+        '#F59E0B',
         '#EC4899',
         '#10B981',
         '#F59E0B'
@@ -377,3 +410,47 @@ const generateMonochromePieChart = (
     });
 
 };
+
+//testing
+let selectedCard = null;
+
+const scale = (div) => {
+    const selectedDivs = document.querySelectorAll('.' + div);
+    const otherDivs = document.querySelectorAll('.program-stat-card');
+
+    // Click the same segment again → show all cards
+    if (selectedCard === div) {
+        otherDivs.forEach(card => {
+            card.classList.remove('selected', 'grayscale');
+            card.style.scale = '1';
+        });
+
+        selectedCard = null;
+        return;
+    }
+
+    // Reset all cards
+    otherDivs.forEach(card => {
+        card.classList.remove('selected');
+        card.classList.add('grayscale');
+        card.style.scale = '0.99';
+    });
+
+    // Select the matching card
+    selectedDivs.forEach(card => {
+        card.classList.remove('grayscale');
+        card.classList.add('selected');
+        card.style.scale = '1.01';
+
+        // Scroll to the selected card
+        card.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest'
+        });
+    });
+
+    // Remember selected card
+    selectedCard = div;
+};
+

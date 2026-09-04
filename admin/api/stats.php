@@ -14,7 +14,7 @@ try {
     $totals = $pdo->query("SELECT
             COUNT(*) AS total,
             SUM(attendance_status = 'present') AS present
-         FROM students")->fetch();
+         FROM students where roster_status = 'registered'")->fetch();
 
     $total = (int)$totals['total'];
     $present = (int)$totals['present'];

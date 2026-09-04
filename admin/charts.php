@@ -158,7 +158,14 @@ requireAdminLogin();
         <nav class="admin-topbar__nav">
             <a href="dashboard.php">Dashboard</a>
             <a href="import.php" >Import Students</a>
-            <a href="charts.php" class="is-active">Charts</a>
+
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle is-active" data-dropdown-toggle>Charts</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item is-active" href="charts.php" >Registered</a></li>
+                    <li><a class="dropdown-item" href="approved.php">Approved</a></li>
+                </ul>
+            </div>
         </nav>
         <div class="admin-topbar__user">
             <span><?= htmlspecialchars($_SESSION['admin_name'], ENT_QUOTES) ?></span>
@@ -197,6 +204,36 @@ requireAdminLogin();
 
     <script src="highcharts-11.4.3/highcharts.js"></script>
     <script src="assets/js/charts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggles = document.querySelectorAll('[data-dropdown-toggle]');
+
+            function closeAll() {
+                document.querySelectorAll('.dropdown-menu.is-open').forEach((menu) => {
+                    menu.classList.remove('is-open');
+                    menu.previousElementSibling?.classList.remove('is-open');
+                });
+            }
+
+            toggles.forEach((toggle) => {
+                const menu = toggle.nextElementSibling;
+                toggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isOpen = menu.classList.contains('is-open');
+                    closeAll();
+                    if (!isOpen) {
+                        menu.classList.add('is-open');
+                        toggle.classList.add('is-open');
+                    }
+                });
+            });
+
+            document.addEventListener('click', closeAll);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeAll();
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

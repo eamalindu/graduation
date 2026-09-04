@@ -47,7 +47,9 @@ document.addEventListener('DOMContentLoaded', () => {
             statPending.textContent = data.pending;
             statPercent.textContent = `${data.percent}%`;
 
-            recentList.innerHTML = data.recent.length === 0 ? '<p class="empty-note">No check-ins yet.</p>' : data.recent.map((r) => `
+            recentList.innerHTML = data.recent.length === 0
+                ? '<p class="empty-note">No check-ins yet.</p>'
+                : data.recent.map((r) => `
             <div class="recent-row">
               <div>
                 <div class="recent-row__name">${escapeHtml(r.full_name)}</div>
@@ -69,11 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         searchResults.innerHTML = results.map((s) => {
             const isPresent = s.attendance_status === 'present';
-            const meta = isPresent ? `<div class="result-row__meta">Checked in ${formatDateTime(s.attendance_time)}${s.marked_by ? ' &middot; ' + escapeHtml(s.marked_by) : ''}</div>` : '';
+            const isApprovedOnly = s.roster_status !== 'registered';
+            const meta = isPresent
+                ? `<div class="result-row__meta">Checked in ${formatDateTime(s.attendance_time)}${s.marked_by ? ' &middot; ' + escapeHtml(s.marked_by) : ''}</div>`
+                : '';
+            const badge = isApprovedOnly ? '<span class="badge badge--approved">Approved, not registered</span>' : '';
             return `
         <div class="result-row" data-id="${s.id}">
           <div class="result-row__info">
-            <div class="result-row__name">${escapeHtml(s.full_name)}</div>
+            <div class="result-row__name">${escapeHtml(s.full_name)} ${badge}</div>
             <div class="result-row__reg">${escapeHtml(s.registration_number)}</div>
             ${meta}
           </div>
@@ -127,8 +133,8 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await fetch('api/toggle_attendance.php', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                body: new URLSearchParams({id, action, csrf_token: csrfToken}),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ id, action, csrf_token: csrfToken }),
             });
             const data = await res.json();
 
@@ -149,5 +155,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     loadStats();
-    setInterval(loadStats, 1000);
+    setInterval(loadStats, 8000);
 });

@@ -16,18 +16,77 @@ class SimpleXlsxReader
     /** @return array<int, array<int, string|null>> Rows of cell values, 0-indexed columns. */
     public static function readFirstSheet(string $path): array
     {
+        return self::readSheetByIndex($path, 0);
+    }
+
+    /**
+     * Finds the first sheet (by tab order) whose name starts with $prefix
+     * (case-insensitive) and reads it — e.g. "Approved" matches "Approved (116)"
+     * regardless of the live count in the tab name.
+     *
+     * @return array<int, array<int, string|null>>
+     * @throws RuntimeException if no sheet name matches.
+     */
+    public static function readSheetByNamePrefix(string $path, string $prefix): array
+    {
         $zip = new ZipArchive();
         if ($zip->open($path) !== true) {
             throw new RuntimeException('Could not open the file as a .xlsx archive.');
         }
 
         try {
-            $sheetTarget = self::resolveFirstSheetTarget($zip);
+            $names = self::listSheetNames($zip);
+            $needle = strtolower($prefix);
+            $matchIndex = null;
+            foreach ($names as $i => $name) {
+                if (str_starts_with(strtolower(trim($name)), $needle)) {
+                    $matchIndex = $i;
+                    break;
+                }
+            }
+
+            if ($matchIndex === null) {
+                throw new RuntimeException("No sheet found starting with \"{$prefix}\". Sheets in this file: " . implode(', ', $names));
+            }
+
+            $sheetTarget = self::resolveSheetTargetByIndex($zip, $matchIndex);
             $sharedStrings = self::readSharedStrings($zip);
             return self::readSheetRows($zip, $sheetTarget, $sharedStrings);
         } finally {
             $zip->close();
         }
+    }
+
+    /** @return array<int, array<int, string|null>> */
+    private static function readSheetByIndex(string $path, int $index): array
+    {
+        $zip = new ZipArchive();
+        if ($zip->open($path) !== true) {
+            throw new RuntimeException('Could not open the file as a .xlsx archive.');
+        }
+
+        try {
+            $sheetTarget = self::resolveSheetTargetByIndex($zip, $index);
+            $sharedStrings = self::readSharedStrings($zip);
+            return self::readSheetRows($zip, $sheetTarget, $sharedStrings);
+        } finally {
+            $zip->close();
+        }
+    }
+
+    /** @return array<int, string> Sheet names in actual tab order. */
+    private static function listSheetNames(ZipArchive $zip): array
+    {
+        $workbook = self::xml($zip, 'xl/workbook.xml');
+        if ($workbook === null) {
+            throw new RuntimeException('xl/workbook.xml not found — is this a valid .xlsx file?');
+        }
+
+        $names = [];
+        foreach ($workbook->sheets->sheet as $sheet) {
+            $names[] = (string) $sheet['name'];
+        }
+        return $names;
     }
 
     private static function xml(ZipArchive $zip, string $name): ?SimpleXMLElement
@@ -39,7 +98,7 @@ class SimpleXlsxReader
         return new SimpleXMLElement($content);
     }
 
-    private static function resolveFirstSheetTarget(ZipArchive $zip): string
+    private static function resolveSheetTargetByIndex(ZipArchive $zip, int $index): string
     {
         $workbook = self::xml($zip, 'xl/workbook.xml');
         if ($workbook === null) {
@@ -50,12 +109,12 @@ class SimpleXlsxReader
         $rNamespace = $namespaces['r'] ?? 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
 
         $sheets = $workbook->sheets->sheet;
-        if (count($sheets) === 0) {
-            throw new RuntimeException('No sheets found in workbook.');
+        if (!isset($sheets[$index])) {
+            throw new RuntimeException("No sheet at tab position {$index}.");
         }
 
-        $firstSheet = $sheets[0];
-        $rId = (string) $firstSheet->attributes($rNamespace)['id'];
+        $targetSheet = $sheets[$index];
+        $rId = (string) $targetSheet->attributes($rNamespace)['id'];
 
         $rels = self::xml($zip, 'xl/_rels/workbook.xml.rels');
         if ($rels === null) {
@@ -68,7 +127,7 @@ class SimpleXlsxReader
             }
         }
 
-        throw new RuntimeException('Could not resolve the first sheet.');
+        throw new RuntimeException('Could not resolve the target sheet.');
     }
 
     /** @return array<int, string> */

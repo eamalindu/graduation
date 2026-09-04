@@ -21,19 +21,35 @@ if ($regNumber === '') {
 try {
     $pdo = getDbConnection();
 
-    $stmt = $pdo->prepare('SELECT registration_number, full_name, email, program, registered_date, attendance_status, attendance_time
+    $stmt = $pdo->prepare(
+        'SELECT registration_number, full_name, email, program, attendance_status, attendance_time, roster_status
          FROM students
-         WHERE registration_number = :reg_number
-         LIMIT 1');
+         WHERE UPPER(registration_number) = UPPER(:reg_number)
+         LIMIT 1'
+    );
     $stmt->execute(['reg_number' => $regNumber]);
     $student = $stmt->fetch();
 
     if (!$student) {
-        echo json_encode(['success' => false, 'message' => 'No record found for that registration number.',]);
+        echo json_encode([
+            'success' => false,
+            'message' => 'No record found for that registration number.',
+        ]);
         exit;
     }
 
-    echo json_encode(['success' => true, 'data' => $student,]);
+    if ($student['roster_status'] !== 'registered') {
+        echo json_encode([
+            'success' => false,
+            'message' => "You're approved, but registration isn't complete yet. Check back closer to the ceremony.",
+        ]);
+        exit;
+    }
+
+    echo json_encode([
+        'success' => true,
+        'data' => $student,
+    ]);
 } catch (Throwable $e) {
     error_log('search_student error: ' . $e->getMessage());
     http_response_code(500);

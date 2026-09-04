@@ -282,9 +282,9 @@ $csrfToken = csrfToken();
             <p class="section-note" style="max-width: 100%">
                 Upload the registration export (.xlsx) and choose which tab to read.
                 Matching registration numbers get their name/email/program refreshed
-                — attendance is never touched by an import. A <strong>Registered</strong>
+                — attendance is never touched by an import.<br/><br/>A <strong>Registered</strong>
                 import always promotes a student to registered (even if they were only
-                approved before). An <strong>Approved</strong> import can only add or
+                approved before).<br><br/>An <strong>Approved</strong> import can only add or
                 keep someone approved — it can never demote a student who has already
                 registered.
             </p>

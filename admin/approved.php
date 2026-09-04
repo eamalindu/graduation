@@ -174,7 +174,7 @@ requireAdminLogin();
     </header>
 
     <div class="row">
-        <div style="width: 40%;padding-left: 20px;height: calc( 100vh - 50px)">
+        <div style="width: 30%;padding-left: 20px;height: calc( 100vh - 50px)">
 
             <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
             <div id="" style="width: 100%;" >
@@ -194,7 +194,7 @@ requireAdminLogin();
 
 
         </div>
-        <div id="programs-stat" style="width: 60%;padding: 20px;overflow: auto;height: calc( 100vh - 50px)"></div>
+        <div id="programs-stat" style="width: 70%;padding: 20px;overflow: auto;height: calc( 100vh - 50px)"></div>
     </div>
 
 

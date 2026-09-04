@@ -22,7 +22,7 @@ try {
     $pdo = getDbConnection();
 
     $stmt = $pdo->prepare(
-        'SELECT registration_number, full_name, email, program, attendance_status, attendance_time, roster_status
+        'SELECT registration_number, full_name, email, program, attendance_status, attendance_time, roster_status,registered_date
          FROM students
          WHERE UPPER(registration_number) = UPPER(:reg_number)
          LIMIT 1'

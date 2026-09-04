@@ -4,7 +4,7 @@ let program;
 const TARGETS = [
     { name: 'Rangamal', target: 125 },
     { name: 'Nethmini', target: 200 },
-    { name: 'Divani', target: 40 },
+    { name: 'Kaushalya', target: 40 },
     { name: 'Dilrukshi', target: 40 },
     { name: 'Chathurya', target: 40 }
 ];
@@ -248,7 +248,7 @@ const generateListOfPrograms = (programs) => {
             card.classList.add('bg-nethmini');
         }
 
-        if (program.assigned=="Divani") {
+        if (program.assigned=="Kaushalya") {
             card.classList.add('bg-divani');
         }
         if (program.assigned=="Dilrukshi") {

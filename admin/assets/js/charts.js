@@ -13,7 +13,13 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     // Get students
     const studentResponse = await fetch('api/students.php');
-    student = await studentResponse.json();
+    const studentData = await studentResponse.json();
+
+    // ONLY registered students
+    student = studentData.students.filter(
+        s => s.roster_status === 'registered'
+    );
+
 
     // Get programs
     const programResponse = await fetch('api/programs.php');
@@ -24,7 +30,7 @@ window.addEventListener('DOMContentLoaded', async () => {
      * Generate counsellor statistics
      */
     const statistics = generateCounsellorStatistics(
-        student.students,
+        student,
         program.programs
     );
 
@@ -55,7 +61,7 @@ window.addEventListener('DOMContentLoaded', async () => {
      * Only show programs which have students
      */
     const programStatistics = generateProgramStatistics(
-        student.students,
+        student,
         program.programs
     ).filter(program => program.count > 0);
 

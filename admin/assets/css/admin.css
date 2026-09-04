@@ -167,6 +167,61 @@
     line-height: 1.5;
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.dropdown-toggle:hover,
+.dropdown-toggle.is-open {
+    color: var(--accent);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 150px;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.25);
+    z-index: 20;
+}
+
+.dropdown-menu.is-open {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 10px;
+    font-size: 13.5px;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.dropdown-item:hover {
+    background: var(--accent-pale);
+    color: var(--accent-dark);
+}
+
 /* =========================================================
    Import
    ========================================================= */

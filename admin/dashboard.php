@@ -24,12 +24,19 @@ requireAdminLogin();
 
     <header class="admin-topbar">
         <div class="admin-topbar__brand">
-            <span>Admin &middot; Attendance</span>
+            <a href="dashboard.php" > <span>Admin &middot; Attendance</span></a>
         </div>
         <nav class="admin-topbar__nav">
             <a href="dashboard.php" class="is-active">Dashboard</a>
             <a href="import.php" >Import Students</a>
-            <a href="charts.php">Charts</a>
+
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle" data-dropdown-toggle>Charts</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="charts.php">Registered</a></li>
+                    <li><a class="dropdown-item" href="approved.php">Approved</a></li>
+                </ul>
+            </div>
         </nav>
         <div class="admin-topbar__user">
             <span><?= htmlspecialchars($_SESSION['admin_name'], ENT_QUOTES) ?></span>
@@ -87,5 +94,35 @@ requireAdminLogin();
 
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
 <script src="assets/js/admin.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggles = document.querySelectorAll('[data-dropdown-toggle]');
+
+        function closeAll() {
+            document.querySelectorAll('.dropdown-menu.is-open').forEach((menu) => {
+                menu.classList.remove('is-open');
+                menu.previousElementSibling?.classList.remove('is-open');
+            });
+        }
+
+        toggles.forEach((toggle) => {
+            const menu = toggle.nextElementSibling;
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.contains('is-open');
+                closeAll();
+                if (!isOpen) {
+                    menu.classList.add('is-open');
+                    toggle.classList.add('is-open');
+                }
+            });
+        });
+
+        document.addEventListener('click', closeAll);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAll();
+        });
+    });
+</script>
 </body>
 </html>

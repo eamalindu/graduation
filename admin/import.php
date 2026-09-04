@@ -24,14 +24,22 @@ function detectHeaderRow(array $rows): ?int
     return null;
 }
 
-function mapHeaderToField(string $header): ?string
+/**
+ * $mode is 'registered' or 'approved'. The Registered-tab export has a
+ * "Registered Date" column we want; the Approved-tab export has a
+ * "Submitted Date" column we deliberately do NOT want mapped to
+ * registered_date — an approved-but-not-registered student shouldn't get a
+ * registered_date at all.
+ */
+function mapHeaderToField(string $header, string $mode): ?string
 {
     $h = strtolower(trim($header));
     if ($h === '') {
         return null;
     }
-    // Order matters: "Registered Date" contains "reg", so date is checked first.
-    if (str_contains($h, 'date')) {
+    // Order matters: "Registered Date" / "Submitted Date" both contain "reg"-adjacent
+    // text, so date is checked before the registration-number check.
+    if ($mode === 'registered' && str_contains($h, 'date')) {
         return 'registered_date';
     }
     if (str_contains($h, 'reg') && (str_contains($h, 'no') || str_contains($h, 'number'))) {
@@ -56,7 +64,6 @@ function parseExcelDate(?string $value): ?string
     }
     $value = trim($value);
 
-    // A true Excel date cell (numeric day-serial), in case a future export uses one.
     if (is_numeric($value)) {
         $date = (new DateTime('1899-12-30'))->modify('+' . (int) $value . ' days');
         return $date->format('Y-m-d');
@@ -74,12 +81,13 @@ function parseExcelDate(?string $value): ?string
 }
 
 /** @return array{imported:int, updated:int, unchanged:int, skipped:array<int,string>, total_rows:int} */
-function importRoster(string $filePath, PDO $pdo): array
+function importRoster(string $filePath, PDO $pdo, string $mode): array
 {
-    $rows = SimpleXlsxReader::readFirstSheet($filePath);
+    $sheetPrefix = $mode === 'registered' ? 'Registered' : 'Approved';
+    $rows = SimpleXlsxReader::readSheetByNamePrefix($filePath, $sheetPrefix);
 
     if (count($rows) === 0) {
-        throw new RuntimeException('The first sheet is empty.');
+        throw new RuntimeException("The \"{$sheetPrefix}\" sheet is empty.");
     }
 
     $headerIndex = detectHeaderRow(array_slice($rows, 0, 5));
@@ -89,7 +97,7 @@ function importRoster(string $filePath, PDO $pdo): array
 
     $fieldMap = [];
     foreach ($rows[$headerIndex] as $colIndex => $header) {
-        $field = mapHeaderToField((string) $header);
+        $field = mapHeaderToField((string) $header, $mode);
         if ($field !== null) {
             $fieldMap[$colIndex] = $field;
         }
@@ -128,11 +136,11 @@ function importRoster(string $filePath, PDO $pdo): array
         $seenInFile[$regNumber] = $rowNumber;
 
         $valid[] = [
-            'registration_number' => $regNumber,
-            'full_name' => $fullName,
-            'email' => $record['email'] ?? '',
-            'program' => ($record['program'] ?? '') !== '' ? $record['program'] : null,
-            'registered_date' => parseExcelDate($record['registered_date']) ?? date('Y-m-d'),
+                'registration_number' => $regNumber,
+                'full_name' => $fullName,
+                'email' => $record['email'] ?? '',
+                'program' => ($record['program'] ?? '') !== '' ? $record['program'] : null,
+                'registered_date' => $mode === 'registered' ? (parseExcelDate($record['registered_date']) ?? date('Y-m-d')) : null,
         ];
     }
 
@@ -144,28 +152,50 @@ function importRoster(string $filePath, PDO $pdo): array
         try {
             $pdo->beginTransaction();
 
-            // Only roster fields are ever touched here — attendance_status,
-            // attendance_time, and marked_by are never in this statement, so a
-            // re-import can never undo someone's check-in.
-            $stmt = $pdo->prepare(
-                'INSERT INTO students (registration_number, full_name, email, program, registered_date)
-                 VALUES (:registration_number, :full_name, :email, :program, :registered_date)
-                 ON DUPLICATE KEY UPDATE
-                    full_name = VALUES(full_name),
-                    email = VALUES(email),
-                    program = VALUES(program),
-                    registered_date = VALUES(registered_date)'
-            );
-
-            foreach ($valid as $record) {
-                $stmt->execute($record);
-                // MySQL's affected-rows for INSERT ... ON DUPLICATE KEY UPDATE:
-                // 1 = inserted, 2 = existing row changed, 0 = existing row already matched.
-                match ($stmt->rowCount()) {
-                    1 => $inserted++,
-                    2 => $updated++,
-                    default => $unchanged++,
-                };
+            if ($mode === 'registered') {
+                // Being in the Registered list always means roster_status becomes
+                // 'registered' — this is how an approved student gets promoted.
+                // attendance_status/attendance_time/marked_by are never touched here,
+                // so a re-import can never undo someone's check-in.
+                $stmt = $pdo->prepare(
+                        "INSERT INTO students (registration_number, full_name, email, program, registered_date, roster_status)
+                     VALUES (:registration_number, :full_name, :email, :program, :registered_date, 'registered')
+                     ON DUPLICATE KEY UPDATE
+                        full_name = VALUES(full_name),
+                        email = VALUES(email),
+                        program = VALUES(program),
+                        registered_date = VALUES(registered_date),
+                        roster_status = 'registered'"
+                );
+                foreach ($valid as $record) {
+                    $stmt->execute($record);
+                    match ($stmt->rowCount()) {
+                        1 => $inserted++,
+                        2 => $updated++,
+                        default => $unchanged++,
+                    };
+                }
+            } else {
+                // Approved import can only ever ADD or upgrade-preserve — it must
+                // never demote someone who has already registered back to 'approved'.
+                $stmt = $pdo->prepare(
+                        "INSERT INTO students (registration_number, full_name, email, program, roster_status)
+                     VALUES (:registration_number, :full_name, :email, :program, 'approved')
+                     ON DUPLICATE KEY UPDATE
+                        full_name = VALUES(full_name),
+                        email = VALUES(email),
+                        program = VALUES(program),
+                        roster_status = IF(roster_status = 'registered', roster_status, 'approved')"
+                );
+                foreach ($valid as $record) {
+                    unset($record['registered_date']); // not a placeholder in this statement
+                    $stmt->execute($record);
+                    match ($stmt->rowCount()) {
+                        1 => $inserted++,
+                        2 => $updated++,
+                        default => $unchanged++,
+                    };
+                }
             }
 
             $pdo->commit();
@@ -176,18 +206,21 @@ function importRoster(string $filePath, PDO $pdo): array
     }
 
     return [
-        'imported' => $inserted,
-        'updated' => $updated,
-        'unchanged' => $unchanged,
-        'skipped' => $skipped,
-        'total_rows' => count($dataRows),
+            'imported' => $inserted,
+            'updated' => $updated,
+            'unchanged' => $unchanged,
+            'skipped' => $skipped,
+            'total_rows' => count($dataRows),
     ];
 }
 
 $result = null;
 $error = null;
+$mode = 'registered';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $mode = ($_POST['mode'] ?? 'registered') === 'approved' ? 'approved' : 'registered';
+
     if (!verifyCsrfToken($_POST['csrf_token'] ?? null)) {
         $error = 'Session expired. Please try again.';
     } elseif (empty($_FILES['roster']) || $_FILES['roster']['error'] !== UPLOAD_ERR_OK) {
@@ -200,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Only .xlsx files are supported.';
     } else {
         try {
-            $result = importRoster($_FILES['roster']['tmp_name'], getDbConnection());
+            $result = importRoster($_FILES['roster']['tmp_name'], getDbConnection(), $mode);
         } catch (Throwable $e) {
             error_log('roster import error: ' . $e->getMessage());
             $error = 'Could not process the file: ' . $e->getMessage();
@@ -213,93 +246,146 @@ $csrfToken = csrfToken();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#7A1F2B">
-<meta name="robots" content="noindex, nofollow">
-    <title>Students Upload | Graduation Attendance</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/style.css">
-<link rel="stylesheet" href="assets/css/admin.css">
-    <link rel="icon" type="image/ico" href="../favicon.ico"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#7A1F2B">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Import Roster — Metropolitan College Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
 <div class="admin-page">
 
-  <header class="admin-topbar">
-    <div class="admin-topbar__brand">
-        <span>Admin &middot; Attendance</span>
-    </div>
-    <nav class="admin-topbar__nav">
-      <a href="dashboard.php">Dashboard</a>
-      <a href="import.php" class="is-active">Import Students</a>
-        <a href="charts.php">Charts</a>
-    </nav>
-    <div class="admin-topbar__user">
-      <span><?= htmlspecialchars($_SESSION['admin_name'], ENT_QUOTES) ?></span>
-      <a href="logout.php" class="admin-topbar__logout">Log out</a>
-    </div>
-  </header>
-
-  <main class="admin-main">
-
-    <section class="panel-section">
-      <h2 class="section-title">Import Student Roster</h2>
-      <p class="section-note" style="max-width: 100%">
-        Upload the registration export (.xlsx). Only the first tab is read.
-        Matching registration numbers are updated with the new name, email,
-        program, and registered date — attendance is never touched. New
-        registration numbers are added as pending.
-      </p>
-
-      <?php if ($error): ?>
-        <div class="message"><?= htmlspecialchars($error, ENT_QUOTES) ?></div>
-      <?php endif; ?>
-
-      <form method="POST" enctype="multipart/form-data" class="import-form">
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES) ?>">
-        <input type="file" name="roster" accept=".xlsx" required class="file-input">
-        <button type="submit" class="btn btn--primary btn--inline">Upload &amp; Import</button>
-      </form>
-    </section>
-
-    <?php if ($result): ?>
-      <section class="panel-section">
-        <h2 class="section-title">Import Results</h2>
-
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-card__value"><?= (int) $result['imported'] ?></span>
-            <span class="stat-card__label">New</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-card__value"><?= (int) $result['updated'] ?></span>
-            <span class="stat-card__label">Updated</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-card__value"><?= (int) $result['unchanged'] ?></span>
-            <span class="stat-card__label">Unchanged</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-card__value"><?= count($result['skipped']) ?></span>
-            <span class="stat-card__label">Skipped</span>
-          </div>
+    <header class="admin-topbar">
+        <div class="admin-topbar__brand">
+            <a href="dashboard.php" > <span>Admin &middot; Attendance</span></a>
         </div>
+        <nav class="admin-topbar__nav">
+            <a href="dashboard.php">Dashboard</a>
+            <a href="import.php" class="is-active">Import Students</a>
 
-        <?php if (!empty($result['skipped'])): ?>
-          <h3 class="section-title section-title--small">Skipped Rows</h3>
-          <ul class="skipped-list">
-            <?php foreach ($result['skipped'] as $reason): ?>
-              <li><?= htmlspecialchars($reason, ENT_QUOTES) ?></li>
-            <?php endforeach; ?>
-          </ul>
+            <div class="dropdown">
+                <button type="button" class="dropdown-toggle" data-dropdown-toggle>Charts</button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="charts.php" >Registered</a></li>
+                    <li><a class="dropdown-item" href="approved.php">Approved</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="admin-topbar__user">
+            <span><?= htmlspecialchars($_SESSION['admin_name'], ENT_QUOTES) ?></span>
+            <a href="logout.php" class="admin-topbar__logout">Log out</a>
+        </div>
+    </header>
+
+    <main class="admin-main">
+
+        <section class="panel-section">
+            <h2 class="section-title">Import Student Roster</h2>
+            <p class="section-note" style="max-width: 100%">
+                Upload the registration export (.xlsx) and choose which tab to read.
+                Matching registration numbers get their name/email/program refreshed
+                — attendance is never touched by an import.<br/><br/>A <strong>Registered</strong>
+                import always promotes a student to registered (even if they were only
+                approved before).<br><br/>An <strong>Approved</strong> import can only add or
+                keep someone approved — it can never demote a student who has already
+                registered.
+            </p>
+
+            <?php if ($error): ?>
+                <div class="message"><?= htmlspecialchars($error, ENT_QUOTES) ?></div>
+            <?php endif; ?>
+
+            <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES) ?>">
+
+                <div class="mode-select">
+                    <label class="mode-option">
+                        <input type="radio" name="mode" value="registered" <?= $mode === 'registered' ? 'checked' : '' ?>>
+                        Registered
+                    </label>
+                    <label class="mode-option">
+                        <input type="radio" name="mode" value="approved" <?= $mode === 'approved' ? 'checked' : '' ?>>
+                        Approved
+                    </label>
+                </div>
+
+                <div class="import-form">
+                    <input type="file" name="roster" accept=".xlsx" required class="file-input">
+                    <button type="submit" class="btn btn--primary btn--inline">Upload &amp; Import</button>
+                </div>
+            </form>
+        </section>
+
+        <?php if ($result): ?>
+            <section class="panel-section">
+                <h2 class="section-title">Import Results — <?= $mode === 'registered' ? 'Registered' : 'Approved' ?></h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-card__value"><?= (int) $result['imported'] ?></span>
+                        <span class="stat-card__label">New</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-card__value"><?= (int) $result['updated'] ?></span>
+                        <span class="stat-card__label">Updated</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-card__value"><?= (int) $result['unchanged'] ?></span>
+                        <span class="stat-card__label">Unchanged</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-card__value"><?= count($result['skipped']) ?></span>
+                        <span class="stat-card__label">Skipped</span>
+                    </div>
+                </div>
+
+                <?php if (!empty($result['skipped'])): ?>
+                    <h3 class="section-title section-title--small">Skipped Rows</h3>
+                    <ul class="skipped-list">
+                        <?php foreach ($result['skipped'] as $reason): ?>
+                            <li><?= htmlspecialchars($reason, ENT_QUOTES) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </section>
         <?php endif; ?>
-      </section>
-    <?php endif; ?>
 
-  </main>
+    </main>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggles = document.querySelectorAll('[data-dropdown-toggle]');
+
+        function closeAll() {
+            document.querySelectorAll('.dropdown-menu.is-open').forEach((menu) => {
+                menu.classList.remove('is-open');
+                menu.previousElementSibling?.classList.remove('is-open');
+            });
+        }
+
+        toggles.forEach((toggle) => {
+            const menu = toggle.nextElementSibling;
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.contains('is-open');
+                closeAll();
+                if (!isOpen) {
+                    menu.classList.add('is-open');
+                    toggle.classList.add('is-open');
+                }
+            });
+        });
+
+        document.addEventListener('click', closeAll);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAll();
+        });
+    });
+</script>
 </body>
 </html>

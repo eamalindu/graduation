@@ -2,11 +2,11 @@ let student;
 let program;
 
 const TARGETS = [
-    { name: 'Rangamal', target: 125 },
-    { name: 'Nethmini', target: 200 },
-    { name: 'Kaushalya', target: 40 },
-    { name: 'Dilrukshi', target: 40 },
-    { name: 'Chathurya', target: 40 }
+    { name: 'Rangamal', target: 100 },
+    { name: 'Nethmini', target: 100 },
+    { name: 'Kaushalya', target: 100 },
+    { name: 'Dilrukshi', target: 100 },
+    { name: 'Chathurya', target: 100 }
 ];
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -17,7 +17,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     // ONLY registered students
     student = studentData.students.filter(
-        s => s.roster_status === 'registered'
+        s => s.roster_status === 'approved'
     );
 
 
@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     generateMonochromePieChart(
         'programs-pie-chart',
         'Programs Distribution',
-        'Registered',
+        'Approved',
         statistics.map(stat => ({
             name: stat.name,
             y: stat.registered
@@ -176,19 +176,7 @@ const generateStatTable = (statistics) => {
             </td>
 
             <td>
-                ${stat.target}
-            </td>
-
-            <td>
                 ${stat.registered}
-            </td>
-
-            <td>
-                ${stat.pending}
-            </td>
-
-            <td>
-                ${stat.percentage.toFixed(1)}%
             </td>
         `;
 

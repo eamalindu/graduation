@@ -18,11 +18,13 @@ if ($query === '') {
 try {
     $pdo = getDbConnection();
 
-    $stmt = $pdo->prepare('SELECT id, registration_number, full_name, email, program, registered_date, attendance_status, attendance_time, marked_by
+    $stmt = $pdo->prepare(
+        'SELECT id, registration_number, full_name, email, program, attendance_status, attendance_time, marked_by, roster_status
          FROM students
          WHERE registration_number LIKE :query1 OR full_name LIKE :query2
          ORDER BY full_name
-         LIMIT 25');
+         LIMIT 25'
+    );
     $likeQuery = '%' . $query . '%';
     $stmt->execute(['query1' => $likeQuery, 'query2' => $likeQuery]);
 

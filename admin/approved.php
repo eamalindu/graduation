@@ -162,8 +162,8 @@ requireAdminLogin();
             <div class="dropdown">
                 <button type="button" class="dropdown-toggle is-active" data-dropdown-toggle>Charts</button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item is-active" href="charts.php" >Registered</a></li>
-                    <li><a class="dropdown-item" href="approved.php">Approved</a></li>
+                    <li><a class="dropdown-item" href="charts.php" >Registered</a></li>
+                    <li><a class="dropdown-item is-active" href="approved.php">Approved</a></li>
                 </ul>
             </div>
         </nav>
@@ -178,15 +178,12 @@ requireAdminLogin();
 
             <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
             <div id="" style="width: 100%;" >
-                <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
+                <h1 style="font-size: 1.2em;text-align: left;">Stats Table | Approved List</h1>
                 <table class="students-table">
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Target</th>
-                        <th>Registered</th>
-                        <th>Pending</th>
-                        <th>%</th>
+                        <th>Approved</th>
                     </tr>
                     </thead>
                     <tbody id="programs-table-body">
@@ -198,12 +195,12 @@ requireAdminLogin();
 
         </div>
         <div id="programs-stat" style="width: 60%;padding: 20px;overflow: auto;height: calc( 100vh - 50px)"></div>
-        </div>
+    </div>
 
 
 
     <script src="highcharts-11.4.3/highcharts.js"></script>
-    <script src="assets/js/charts.js"></script>
+    <script src="assets/js/approved.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggles = document.querySelectorAll('[data-dropdown-toggle]');

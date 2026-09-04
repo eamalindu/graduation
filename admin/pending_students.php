@@ -20,7 +20,20 @@ requireAdminLogin();
     <link rel="stylesheet" href="https://cdn.datatables.net/3.0.0/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/admin.css">
+    <style>
+        table {
+            width: 100% !important;
+            max-width: 100%;
+            table-layout: auto;
+        }
 
+        table th,
+        table td {
+            white-space: normal !important;
+            overflow-wrap: break-word;
+            word-break: normal;
+        }
+    </style>
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
 </head>
 <body>

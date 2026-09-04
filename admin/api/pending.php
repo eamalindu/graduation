@@ -11,7 +11,7 @@ requireAdminLoginApi();
 try {
     $pdo = getDbConnection();
 
-    $students = $pdo->query("SELECT id, registration_number, full_name, course, faculty, batch, attendance_status, attendance_time, marked_by
+    $students = $pdo->query("SELECT id, registration_number, full_name, email, program, registered_date, attendance_status, attendance_time, marked_by, roster_status
          FROM students
          WHERE attendance_status = 'pending'")->fetchAll();
 

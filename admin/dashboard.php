@@ -24,7 +24,7 @@ requireAdminLogin();
 
     <header class="admin-topbar">
         <div class="admin-topbar__brand">
-            <span>Admin &middot; Attendance</span>
+            <a href="dashboard.php" > <span>Admin &middot; Attendance</span></a>
         </div>
         <nav class="admin-topbar__nav">
             <a href="dashboard.php" class="is-active">Dashboard</a>

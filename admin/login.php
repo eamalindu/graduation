@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $pdo = getDbConnection();
-        $stmt = $pdo->prepare('SELECT id, username, password_hash, full_name FROM admins WHERE username = :username LIMIT 1');
+        $stmt = $pdo->prepare('SELECT id, username, password_hash, full_name, superadmin FROM admins WHERE username = :username LIMIT 1');
         $stmt->execute(['username' => $username]);
         $admin = $stmt->fetch();
 
@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_username'] = $admin['username'];
             $_SESSION['admin_name'] = $admin['full_name'] ?: $admin['username'];
+            $_SESSION['admin_mode'] = (bool) $admin['superadmin'];
             header('Location: dashboard.php');
             exit;
         }

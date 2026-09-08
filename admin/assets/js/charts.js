@@ -66,6 +66,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     ).filter(program => program.count > 0);
 
     generateListOfPrograms(programStatistics);
+
     generateProgramTypeBreakdown(student, program.programs);
 
 
@@ -302,10 +303,17 @@ const generateProgramTypeBreakdown = (students, programs) => {
 
     tbody.innerHTML = "";
 
+    const order = [
+        'Diploma',
+        'Higher Diploma',
+        'OTHM',
+        'Degree',
+        'Masters',
+        'PHDs'
+    ];
 
     /*
-     * Group programs by type, count registered
-     * students under each type
+     * Group programs by type
      */
     const typeMap = {};
 
@@ -319,15 +327,23 @@ const generateProgramTypeBreakdown = (students, programs) => {
 
     });
 
+    /*
+     * Sort types according to custom order
+     */
+    const sortedTypes = Object.keys(typeMap).sort(
+        (a, b) => order.indexOf(a) - order.indexOf(b)
+    );
 
-    Object.keys(typeMap).forEach(type => {
+    /*
+     * Generate table
+     */
+    sortedTypes.forEach(type => {
 
         const programNames = typeMap[type];
 
         const count = students.filter(
             student => programNames.includes(student.program)
         ).length;
-
 
         const row = document.createElement('tr');
 

@@ -188,6 +188,8 @@ requireAdminLogin();
         <div style="width: 35%;padding-left: 20px;height: calc( 100vh - 50px);display: flex;flex-direction: column;overflow: auto;align-items: center;">
 
             <div style="width: 100%;">
+
+                <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
             <h1 style="font-size: 1.2em;text-align: left;">Level of Education Count</h1>
 
             <table class="students-table" style="width: 100%;">
@@ -202,7 +204,6 @@ requireAdminLogin();
             </table>
             </div>
 
-            <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
             <div id="" style="width: 100%;">
                 <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
                 <table class="students-table">

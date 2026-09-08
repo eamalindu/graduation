@@ -408,6 +408,9 @@ const generateMonochromePieChart = (
                 color: '#111827'
             }
         },
+        credits: {
+            enabled: false // This hides the Highcharts.com watermark
+        },
 
 
         subtitle: {

@@ -192,6 +192,20 @@ requireAdminLogin();
                     <tbody id="programs-table-body">
                     </tbody>
                 </table>
+
+
+                <h1 style="font-size: 1.2em;text-align: left;margin-top: 30px">Program Type Wise Breakdown </h1>
+
+                <table class="students-table">
+                    <thead>
+                    <tr>
+                        <th>Program Type</th>
+                        <th>Count</th>
+                    </tr>
+                    </thead>
+                    <tbody id="breakdown-table-body">
+                    </tbody>
+                </table>
             </div>
 
 

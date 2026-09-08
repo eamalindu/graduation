@@ -66,6 +66,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     ).filter(program => program.count > 0);
 
     generateListOfPrograms(programStatistics);
+    generateProgramTypeBreakdown(student, program.programs);
 
 
     document.querySelector('.highcharts-color-0').addEventListener('click', () => {
@@ -287,6 +288,64 @@ const generateListOfPrograms = (programs) => {
 
 };
 
+
+
+/* =========================================================
+   PROGRAM TYPE BREAKDOWN
+========================================================= */
+
+const generateProgramTypeBreakdown = (students, programs) => {
+
+    const tbody = document.getElementById(
+        'breakdown-table-body'
+    );
+
+    tbody.innerHTML = "";
+
+
+    /*
+     * Group programs by type, count registered
+     * students under each type
+     */
+    const typeMap = {};
+
+    programs.forEach(program => {
+
+        if (!typeMap[program.type]) {
+            typeMap[program.type] = [];
+        }
+
+        typeMap[program.type].push(program.name);
+
+    });
+
+
+    Object.keys(typeMap).forEach(type => {
+
+        const programNames = typeMap[type];
+
+        const count = students.filter(
+            student => programNames.includes(student.program)
+        ).length;
+
+
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+            <td>
+                ${type}
+            </td>
+
+            <td>
+                ${count}
+            </td>
+        `;
+
+        tbody.appendChild(row);
+
+    });
+
+};
 
 /* =========================================================
    PIE CHART

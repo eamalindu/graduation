@@ -129,7 +129,7 @@ Contributing
 - Pull requests should include a concise description and, when applicable, updates to schema.sql or images.
 
 License
-- See the LICENSE file in the repo. If no license exists, add one (MIT is a common choice).
+- See the LICENSE file in the repo.
 
 Contact
 - Repo: https://github.com/eamalindu/graduation

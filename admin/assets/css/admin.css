@@ -392,7 +392,7 @@
 
 .students-table th,
 .students-table td {
-    padding: 8px;
+    padding: 4px;
     border: 1px solid var(--border);
     white-space: nowrap;
 }

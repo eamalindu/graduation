@@ -185,7 +185,22 @@ requireAdminLogin();
     </header>
 
     <div class="row">
-        <div style="width: 35%;padding-left: 20px;height: calc( 100vh - 50px);display: flex;flex-direction: column;overflow: auto;justify-content: space-around;align-items: center;">
+        <div style="width: 35%;padding-left: 20px;height: calc( 100vh - 50px);display: flex;flex-direction: column;overflow: auto;align-items: center;">
+
+            <div style="width: 100%;">
+            <h1 style="font-size: 1.2em;text-align: left;">Level of Education Count</h1>
+
+            <table class="students-table" style="width: 100%;">
+                <thead>
+                <tr>
+                    <th>Program Type</th>
+                    <th>Count</th>
+                </tr>
+                </thead>
+                <tbody id="breakdown-table-body">
+                </tbody>
+            </table>
+            </div>
 
             <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
             <div id="" style="width: 100%;">
@@ -204,19 +219,6 @@ requireAdminLogin();
                     </tbody>
                 </table>
 
-
-                <h1 style="font-size: 1.2em;text-align: left;margin-top: 20px">Level of Education Count</h1>
-
-                <table class="students-table" style="width: 100%;">
-                    <thead>
-                    <tr>
-                        <th>Program Type</th>
-                        <th>Count</th>
-                    </tr>
-                    </thead>
-                    <tbody id="breakdown-table-body">
-                    </tbody>
-                </table>
             </div>
 
 

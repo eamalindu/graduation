@@ -194,9 +194,9 @@ requireAdminLogin();
                 </table>
 
 
-                <h1 style="font-size: 1.2em;text-align: left;margin-top: 30px">Program Type Wise Breakdown </h1>
+                <h1 style="font-size: 1.2em;text-align: left;">Level of Education Count Breakdown </h1>
 
-                <table class="students-table">
+                <table class="students-table" style="width: 50%">
                     <thead>
                     <tr>
                         <th>Program Type</th>

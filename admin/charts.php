@@ -174,7 +174,7 @@ requireAdminLogin();
     </header>
 
     <div class="row">
-        <div style="width: 30%;padding-left: 20px;height: calc( 100vh - 50px)">
+        <div style="width: 35%;padding-left: 20px;height: calc( 100vh - 50px)">
 
             <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
             <div id="" style="width: 100%;" >
@@ -190,6 +190,20 @@ requireAdminLogin();
                     </tr>
                     </thead>
                     <tbody id="programs-table-body">
+                    </tbody>
+                </table>
+
+
+                <h1 style="font-size: 1.2em;text-align: left;">Level of Education Count Breakdown </h1>
+
+                <table class="students-table" style="width: 50%;">
+                    <thead>
+                    <tr>
+                        <th>Program Type</th>
+                        <th>Count</th>
+                    </tr>
+                    </thead>
+                    <tbody id="breakdown-table-body">
                     </tbody>
                 </table>
             </div>

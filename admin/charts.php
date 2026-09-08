@@ -19,20 +19,23 @@ requireAdminLogin();
     <title>Charts | Graduation Attendance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
     <style>
-        .highcharts-root{
-            font-family: inherit!important;
+        .highcharts-root {
+            font-family: inherit !important;
         }
-        .row{
+
+        .row {
             width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+
         #programs-stat {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -77,7 +80,8 @@ requireAdminLogin();
 
             margin-top: 15px;
         }
-        .bg-rangamal{
+
+        .bg-rangamal {
 
             color: #f63b3b !important;
             border-color: #f63b3b;
@@ -87,18 +91,18 @@ requireAdminLogin();
             background: rgb(246 59 59 / 0.1);
         }
 
-        .bg-nethmini{
+        .bg-nethmini {
             border-color: #6366F1;
-            color: #6366F1!important;
+            color: #6366F1 !important;
         }
 
         .bg-nethmini.selected {
             background: rgba(99, 102, 241, 0.1)
         }
 
-        .bg-divani{
+        .bg-divani {
             border-color: #F59E0B;
-            color: #F59E0B!important;
+            color: #F59E0B !important;
         }
 
         .bg-divani.selected {
@@ -106,27 +110,29 @@ requireAdminLogin();
 
         }
 
-        .bg-dilrukshi{
+        .bg-dilrukshi {
             border-color: #EC4899;
-            color: #EC4899!important;
+            color: #EC4899 !important;
         }
 
         .bg-dilrukshi.selected {
             background: rgba(236, 72, 153, 0.1);
         }
 
-        .bg-chathurya{
+        .bg-chathurya {
             border-color: #10B981;
-            color: #10B981!important;
+            color: #10B981 !important;
         }
 
         .bg-chathurya.selected {
             background: rgba(16, 185, 129, 0.1)
         }
+
         .program-stat-label {
             font-size: 12px;
             color: #6b7280;
         }
+
         /* width */
         ::-webkit-scrollbar {
             width: 6px;
@@ -153,16 +159,16 @@ requireAdminLogin();
 
     <header class="admin-topbar">
         <div class="admin-topbar__brand">
-            <a href="dashboard.php" > <span>Admin &middot; Attendance</span></a>
+            <a href="dashboard.php"> <span>Admin &middot; Attendance</span></a>
         </div>
         <nav class="admin-topbar__nav">
             <a href="dashboard.php">Dashboard</a>
-            <a href="import.php" >Import Students</a>
+            <a href="import.php">Import Students</a>
 
             <div class="dropdown">
                 <button type="button" class="dropdown-toggle is-active" data-dropdown-toggle>Charts</button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item is-active" href="charts.php" >Registered</a></li>
+                    <li><a class="dropdown-item is-active" href="charts.php">Registered</a></li>
                     <li><a class="dropdown-item" href="approved.php">Approved</a></li>
                 </ul>
             </div>
@@ -174,10 +180,10 @@ requireAdminLogin();
     </header>
 
     <div class="row">
-        <div style="width: 35%;padding-left: 20px;height: calc( 100vh - 50px)">
+        <div style="width: 35%;padding-left: 20px;height: calc( 100vh - 50px);display: flex;flex-direction: column;overflow: auto;justify-content: space-around;align-items: center;">
 
             <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
-            <div id="" style="width: 100%;" >
+            <div id="" style="width: 100%;">
                 <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
                 <table class="students-table">
                     <thead>
@@ -194,9 +200,9 @@ requireAdminLogin();
                 </table>
 
 
-                <h1 style="font-size: 1.2em;text-align: left;">Level of Education Count Breakdown </h1>
+                <h1 style="font-size: 1.2em;text-align: left;margin-top: 20px">Level of Education Count</h1>
 
-                <table class="students-table" style="width: 50%;">
+                <table class="students-table" style="width: 100%;">
                     <thead>
                     <tr>
                         <th>Program Type</th>
@@ -209,11 +215,9 @@ requireAdminLogin();
             </div>
 
 
-
         </div>
         <div id="programs-stat" style="width: 70%;padding: 20px;overflow: auto;height: calc( 100vh - 50px)"></div>
-        </div>
-
+    </div>
 
 
     <script src="highcharts-11.4.3/highcharts.js"></script>

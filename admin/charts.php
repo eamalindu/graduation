@@ -23,6 +23,7 @@ requireAdminLogin();
           rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/loader.css">
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
     <style>
         .highcharts-root {
@@ -155,6 +156,10 @@ requireAdminLogin();
     </style>
 </head>
 <body>
+<div id="loader-container">
+    <div class="loader"></div>
+</div>
+
 <div class="admin-page">
 
     <header class="admin-topbar">
@@ -221,6 +226,7 @@ requireAdminLogin();
 
 
     <script src="highcharts-11.4.3/highcharts.js"></script>
+    <script src="assets/js/loader.js"></script>
     <script src="assets/js/charts.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

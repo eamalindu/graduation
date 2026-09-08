@@ -1,0 +1,1 @@
+function showLoader() { document.getElementById("loader-container") .classList.remove("hidden"); } function hideLoader() { document.getElementById("loader-container") .classList.add("hidden"); } // Hide loader when the entire page is fully loaded window.addEventListener("load", () => { hideLoader(); })

@@ -89,6 +89,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('.highcharts-color-4').addEventListener('click', () => {
         scale('bg-chathurya');
     });
+
+    hideLoader();
 });
 
 

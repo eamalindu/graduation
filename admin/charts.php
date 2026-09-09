@@ -166,12 +166,12 @@ requireAdminLogin();
         </div>
         <nav class="admin-topbar__nav">
             <?php if (!empty($_SESSION['admin_mode'])): ?>
-                <a href="dashboard.php" class="is-active">Dashboard</a>
+                <a href="dashboard.php">Dashboard</a>
                 <a href="import.php">Import Students</a>
             <?php endif; ?>
 
             <div class="dropdown">
-                <button type="button" class="dropdown-toggle" data-dropdown-toggle>Charts</button>
+                <button type="button" class="dropdown-toggle is-active" data-dropdown-toggle>Charts</button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="charts.php">Registered</a></li>
                     <li><a class="dropdown-item" href="approved.php">Approved</a></li>

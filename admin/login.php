@@ -79,7 +79,7 @@ $csrfToken = csrfToken();
             <a href="">
                 <img src="../images/MC.png" alt="Metropolitan College Seal" class="seal__img" width="100" height="100"></a>
         </div>
-        <p class="header__eyebrow">Convocation &middot; Admin</p>
+        <p class="header__eyebrow">Graduation &middot; Admin Login</p>
         <h1 class="header__title">Metropolitan College</h1>
         <p class="header__subtitle">Sign in to manage attendance</p>
     </header>

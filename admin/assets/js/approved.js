@@ -322,6 +322,10 @@ const generateMonochromePieChart = (
             }
         },
 
+        credits: {
+            enabled: false // This hides the Highcharts.com watermark
+        },
+
 
         subtitle: {
             text: `Total ${axisName} : ${totalAmount}`,

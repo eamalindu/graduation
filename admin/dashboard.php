@@ -24,11 +24,13 @@ requireAdminLogin();
 
     <header class="admin-topbar">
         <div class="admin-topbar__brand">
-            <a href="dashboard.php" > <span>Admin &middot; Attendance</span></a>
+            <a href="dashboard.php"><span>Admin &middot; Attendance</span></a>
         </div>
         <nav class="admin-topbar__nav">
-            <a href="dashboard.php" class="is-active">Dashboard</a>
-            <a href="import.php" >Import Students</a>
+            <?php if (!empty($_SESSION['admin_mode'])): ?>
+                <a href="dashboard.php" class="is-active">Dashboard</a>
+                <a href="import.php">Import Students</a>
+            <?php endif; ?>
 
             <div class="dropdown">
                 <button type="button" class="dropdown-toggle" data-dropdown-toggle>Charts</button>

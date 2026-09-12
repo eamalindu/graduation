@@ -30,6 +30,8 @@ window.addEventListener('DOMContentLoaded', () => {
             const studentList = document.getElementById('student-list');
             studentList.innerHTML = '<p class="empty-note">Error loading students.</p>';
         });
+
+    hideLoader()
 })
 
 // 1. Add the "async" keyword before the arrow function parameters

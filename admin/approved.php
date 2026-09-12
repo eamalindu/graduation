@@ -72,10 +72,8 @@ requireAdminLogin();
         }
 
         .program-stat-count {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 700;
-
-            margin-top: 15px;
         }
         .bg-rangamal{
 
@@ -153,17 +151,19 @@ requireAdminLogin();
 
     <header class="admin-topbar">
         <div class="admin-topbar__brand">
-            <a href="dashboard.php" > <span>Admin &middot; Attendance</span></a>
+            <a href="dashboard.php"><span>Admin &middot; Attendance</span></a>
         </div>
         <nav class="admin-topbar__nav">
-            <a href="dashboard.php">Dashboard</a>
-            <a href="import.php" >Import Students</a>
+            <?php if (!empty($_SESSION['admin_mode'])): ?>
+                <a href="dashboard.php" class="is-active">Dashboard</a>
+                <a href="import.php">Import Students</a>
+            <?php endif; ?>
 
             <div class="dropdown">
-                <button type="button" class="dropdown-toggle is-active" data-dropdown-toggle>Charts</button>
+                <button type="button" class="dropdown-toggle" data-dropdown-toggle>Charts</button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="charts.php" >Registered</a></li>
-                    <li><a class="dropdown-item is-active" href="approved.php">Approved</a></li>
+                    <li><a class="dropdown-item" href="charts.php">Registered</a></li>
+                    <li><a class="dropdown-item" href="approved.php">Approved</a></li>
                 </ul>
             </div>
         </nav>

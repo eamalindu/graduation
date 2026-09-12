@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $pdo = getDbConnection();
-        $stmt = $pdo->prepare('SELECT id, username, password_hash, full_name FROM admins WHERE username = :username LIMIT 1');
+        $stmt = $pdo->prepare('SELECT id, username, password_hash, full_name, superadmin FROM admins WHERE username = :username LIMIT 1');
         $stmt->execute(['username' => $username]);
         $admin = $stmt->fetch();
 
@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_username'] = $admin['username'];
             $_SESSION['admin_name'] = $admin['full_name'] ?: $admin['username'];
+            $_SESSION['admin_mode'] = (bool) $admin['superadmin'];
             header('Location: dashboard.php');
             exit;
         }
@@ -78,7 +79,7 @@ $csrfToken = csrfToken();
             <a href="">
                 <img src="../images/MC.png" alt="Metropolitan College Seal" class="seal__img" width="100" height="100"></a>
         </div>
-        <p class="header__eyebrow">Convocation &middot; Admin</p>
+        <p class="header__eyebrow">Graduation &middot; Admin Login</p>
         <h1 class="header__title">Metropolitan College</h1>
         <p class="header__subtitle">Sign in to manage attendance</p>
     </header>

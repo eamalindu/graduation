@@ -20,6 +20,7 @@ requireAdminLogin();
     <link rel="stylesheet" href="https://cdn.datatables.net/3.0.0/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/loader.css">
 
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
     <style>
@@ -38,6 +39,10 @@ requireAdminLogin();
     </style>
 </head>
 <body>
+
+<div id="loader-container">
+    <div class="loader"></div>
+</div>
 <div class="admin-page">
 
     <header class="admin-topbar">
@@ -81,6 +86,7 @@ requireAdminLogin();
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.datatables.net/3.0.0/js/dataTables.js"></script>
+<script src="assets/js/loader.js"></script>
 <script src="assets/js/students.js"></script>
 </body>
 </html>

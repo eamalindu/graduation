@@ -212,7 +212,7 @@ requireAdminLogin();
                         <th>Name</th>
                         <th>Target</th>
                         <th>Registered</th>
-                        <th>Pending</th>
+                        <th>Remaining</th>
                         <th>%</th>
                     </tr>
                     </thead>

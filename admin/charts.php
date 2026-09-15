@@ -151,6 +151,153 @@ requireAdminLogin();
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+        .dashboard-row {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            gap: 0;
+        }
+
+        .dashboard-sidebar {
+            width: 35%;
+            padding-left: 20px;
+            height: calc(100vh - 50px);
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .dashboard-section {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .programs-pie-chart {
+            width: 100%;
+            height: 350px;
+            margin-top: 15px;
+        }
+
+        .section-title {
+            font-size: 1.2em;
+            text-align: left;
+            margin: 10px 0;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .students-table {
+            width: 100%;
+        }
+
+        .programs-stat {
+            width: 65%;
+            padding: 20px;
+            height: calc(100vh - 50px);
+
+            overflow: auto;
+        }
+
+
+        /* =========================
+           Tablet
+           ========================= */
+
+        @media (max-width: 992px) {
+
+            .dashboard-sidebar {
+                width: 40%;
+            }
+
+            .programs-stat {
+                width: 60%;
+            }
+
+        }
+
+
+        /* =========================
+           Mobile
+           ========================= */
+
+        @media (max-width: 768px) {
+
+            .dashboard-row {
+                flex-direction: column;
+            }
+
+            .dashboard-sidebar {
+                width: 100%;
+                height: auto;
+
+                padding: 10px 15px;
+
+                overflow: visible;
+            }
+
+            .programs-stat {
+                width: 100%;
+                height: auto;
+
+                padding: 15px;
+                overflow-x: auto;
+                overflow-y: visible;
+            }
+
+            .programs-pie-chart {
+                height: 300px;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+            }
+
+        }
+
+
+        /* =========================
+           Small Mobile
+           ========================= */
+
+        @media (max-width: 480px) {
+
+            .dashboard-sidebar {
+                padding: 10px;
+            }
+
+            .programs-stat {
+                padding: 10px;
+            }
+
+            .programs-pie-chart {
+                height: 260px;
+                margin-top: 5px;
+            }
+
+            .section-title {
+                font-size: 1rem;
+            }
+
+            .students-table {
+                font-size: 0.85rem;
+            }
+
+            .students-table th,
+            .students-table td {
+                padding: 8px 6px;
+                white-space: nowrap;
+            }
+
+        }
     </style>
 </head>
 <body>
@@ -184,47 +331,60 @@ requireAdminLogin();
         </div>
     </header>
 
-    <div class="row">
-        <div style="width: 35%;padding-left: 20px;height: calc( 100vh - 50px);display: flex;flex-direction: column;overflow: auto;align-items: center;">
+    <div class="dashboard-row">
 
-            <div style="width: 100%;">
+        <!-- Left Section -->
+        <div class="dashboard-sidebar">
 
-                <div id="programs-pie-chart" style="margin-top: 15px;height: 350px"></div>
-            <h1 style="font-size: 1.2em;text-align: left;">Level of Education Count</h1>
+            <div class="dashboard-section">
 
-            <table class="students-table" style="width: 100%;">
-                <thead>
-                <tr>
-                    <th>Program Type</th>
-                    <th>Count</th>
-                </tr>
-                </thead>
-                <tbody id="breakdown-table-body">
-                </tbody>
-            </table>
-            </div>
+                <div id="programs-pie-chart" class="programs-pie-chart"></div>
 
-            <div id="" style="width: 100%;">
-                <h1 style="font-size: 1.2em;text-align: left;">Stats Table</h1>
-                <table class="students-table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Target</th>
-                        <th>Registered</th>
-                        <th>Remaining</th>
-                        <th>%</th>
-                    </tr>
-                    </thead>
-                    <tbody id="programs-table-body">
-                    </tbody>
-                </table>
+                <h1 class="section-title">Level of Education Count</h1>
+
+                <div class="table-responsive">
+                    <table class="students-table">
+                        <thead>
+                        <tr>
+                            <th>Program Type</th>
+                            <th>Count</th>
+                        </tr>
+                        </thead>
+                        <tbody id="breakdown-table-body">
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
 
+            <div class="dashboard-section">
+
+                <h1 class="section-title">Stats Table</h1>
+
+                <div class="table-responsive">
+                    <table class="students-table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Target</th>
+                            <th>Registered</th>
+                            <th>Remaining</th>
+                            <th>%</th>
+                        </tr>
+                        </thead>
+                        <tbody id="programs-table-body">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
 
         </div>
-        <div id="programs-stat" style="width: 70%;padding: 20px;overflow: auto;height: calc( 100vh - 50px)"></div>
+
+
+        <!-- Right Section -->
+        <div id="programs-stat" class="programs-stat"></div>
+
     </div>
 
 

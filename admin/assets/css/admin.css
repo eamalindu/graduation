@@ -469,6 +469,6 @@
     }
 
     .students-table {
-        min-width: 600px;
+        min-width: 100%;
     }
 }

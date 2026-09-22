@@ -1,8 +1,17 @@
-config/database.php
-.DS_Store
+# Environment / Configuration
 .env
-vendor/**
-.idea/**
+config/database.php
+
+# Dependencies
+/vendor/
+
+# IDE
+.idea/
+
+# macOS
+.DS_Store
+
+# Sensitive / Internal Admin Files
 /admin/migration_2_admin.sql
 /admin/README.md
 /admin/schema.sql

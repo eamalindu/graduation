@@ -12,7 +12,7 @@ requireAdminLogin();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#7A1F2B">
     <meta name="robots" content="noindex, nofollow">
-    <title>Dashboard | Graduation Attendance</title>
+    <title>All Students | Graduation Attendance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
@@ -58,14 +58,14 @@ requireAdminLogin();
     <main class="admin-main" style="max-width: 90%;">
 
         <section class="panel-section">
-            <h2 class="section-title" style="margin-bottom: 40px">Student All Data</h2>
+            <h2 class="section-title" style="margin-bottom: 40px">Registered Students</h2>
             <div class="table-container w-100">
                 <table class="students-table w-100" id="students-table">
                     <thead>
                     <tr>
                         <th>Registration Number</th>
                         <th>Full Name</th>
-                        <th>email</th>
+                        <th>Email</th>
                         <th>Programme</th>
                         <th>Registered Date</th>
                         <th>Attendance Status</th>
@@ -87,6 +87,6 @@ requireAdminLogin();
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <script src="https://cdn.datatables.net/3.0.0/js/dataTables.js"></script>
 <script src="assets/js/loader.js"></script>
-<script src="assets/js/students.js"></script>
+<script src="assets/js/students.js?"></script>
 </body>
 </html>

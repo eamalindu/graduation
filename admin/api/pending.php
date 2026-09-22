@@ -13,7 +13,7 @@ try {
 
     $students = $pdo->query("SELECT id, registration_number, full_name, email, program, registered_date, attendance_status, attendance_time, marked_by, roster_status
          FROM students
-         WHERE attendance_status = 'pending'")->fetchAll();
+         WHERE attendance_status = 'pending' AND roster_status = 'registered'")->fetchAll();
 
     echo json_encode(['success' => true, 'students' => $students]);
 } catch (Throwable $e) {

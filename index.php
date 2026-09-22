@@ -20,7 +20,7 @@
         <div class="seal seal--header" aria-hidden="true"><a href="">
                 <img src="images/MC.png" alt="Metropolitan College Seal" class="seal__img" width="100" height="100"></a>
         </div>
-        <p class="header__eyebrow">Convocation &middot; Attendance</p>
+        <p class="header__eyebrow">Graduation &middot; Attendance</p>
         <h1 class="header__title">Metropolitan College</h1>
         <p class="header__subtitle">Confirm your attendance below</p>
     </header>
@@ -61,7 +61,7 @@
                     <span class="record__value" id="detail-course"></span>
                 </div>
                 <div class="record__row">
-                    <span class="record__label">email</span>
+                    <span class="record__label">Email</span>
                     <span class="record__value" id="detail-faculty"></span>
                 </div>
                 <div class="record__row">

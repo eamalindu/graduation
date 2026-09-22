@@ -14,7 +14,481 @@
    ========================================================= */
 
 .admin-topbar {
+    display: flex;/* =========================================================
+   Admin Page
+   ========================================================= */
+
+.admin-page {
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    background: var(--white);
+}
+
+/* =========================================================
+   Top Bar
+   ========================================================= */
+
+.admin-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-body);
+}
+
+.admin-topbar a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.admin-topbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.admin-topbar__nav {
+    display: flex;
+    gap: 18px;
+    font-size: 15px;
+}
+
+.admin-topbar__nav a {
+    color: var(--ink-muted);
+    font-weight: 600;
+}
+
+.admin-topbar__nav a:hover,
+.admin-topbar__nav a.is-active {
+    color: var(--accent);
+}
+.is-active {
+    color: var(--accent)!important;
+}
+
+.admin-topbar__user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--ink-muted);
+    font-size: 13px;
+}
+
+.admin-topbar__logout {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.admin-topbar__logout:hover {
+    text-decoration: underline;
+}
+
+.mini-seal {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   Main Content
+   ========================================================= */
+
+.admin-main {
+    flex: 1;
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 24px 18px 48px;
+}
+
+/* =========================================================
+   Statistics
+   ========================================================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.stats-grid a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.stat-card {
+    padding: 18px 14px;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.stat-card__value {
+    display: block;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.stat-card__label {
+    display: block;
+    margin-top: 4px;
+    color: var(--ink-muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   Sections
+   ========================================================= */
+
+.panel-section {
+    margin-bottom: 34px;
+}
+
+.section-title {
+    margin: 0 0 14px;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.section-title--small {
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+.section-note {
+    max-width: 56ch;
+    margin: 0 0 18px;
+    color: var(--ink-muted);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.dropdown-toggle:hover,
+.dropdown-toggle.is-open {
+    color: var(--accent);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 150px;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.25);
+    z-index: 20;
+}
+
+.dropdown-menu.is-open {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px 10px;
+    font-size: 14.5px;
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.dropdown-item:hover {
+    background: #f5f5f5;
+    color: var(--accent-dark);
+}
+
+/* =========================================================
+   Import
+   ========================================================= */
+
+.import-form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.file-input {
+    color: var(--ink-muted);
+    font-family: var(--font-body);
+    font-size: 13.5px;
+}
+
+.skipped-list {
+    margin: 10px 0 0;
+    padding-left: 20px;
+    color: var(--ink-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   Search
+   ========================================================= */
+
+.admin-search-form {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-search-form .field-input {
+    margin: 0;
+}
+
+.btn--inline {
+    width: auto;
+    margin-top: 0;
+    padding-right: 20px;
+    padding-left: 20px;
+    white-space: nowrap;
+}
+
+.empty-note {
+    margin: 0;
+    padding: 14px 0;
+    color: var(--ink-muted);
+    font-size: 14px;
+}
+
+.search-results {
+    margin-top: 6px;
+}
+
+.result-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.result-row__name {
+    font-size: 14.5px;
+    font-weight: 600;
+}
+
+.result-row__reg {
+    margin-top: 2px;
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+}
+
+.result-row__meta {
+    margin-top: 4px;
+    color: var(--ink-muted);
+    font-size: 12px;
+}
+
+/* =========================================================
+   Toggle Buttons
+   ========================================================= */
+
+.btn-toggle {
+    flex-shrink: 0;
+    padding: 9px 14px;
+    border: 1.5px solid var(--accent);
+    border-radius: 4px;
+    background: var(--white);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-toggle--mark {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.btn-toggle--undo {
+    border-color: var(--border);
+    background: var(--white);
+    color: var(--ink-muted);
+}
+
+.btn-toggle:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-toggle:focus-visible {
+    outline: 2.5px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   Recent List
+   ========================================================= */
+
+.recent-list {
+    border-top: 1px solid var(--border);
+}
+
+.recent-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.recent-row__name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.recent-row__reg {
+    color: var(--ink-muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.recent-row__time {
+    color: var(--ink-muted);
+    font-size: 12.5px;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   Students Table
+   ========================================================= */
+
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.students-table th,
+.students-table td {
+    padding: 4px;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+/* =========================================================
+   Download Button
+   ========================================================= */
+
+#download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 6px 12px;
+    border: 0;
+    border-radius: 6px;
+    background-color: #107c41;
+    color: #fff;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgb(16 124 65 / 20%);
+    transition:
+            background-color 0.2s ease,
+            transform 0.1s ease;
+}
+
+#download-btn:hover {
+    background-color: #0f6c39;
+}
+
+#download-btn:active {
+    transform: scale(0.98);
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media (min-width: 640px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 639px) {
+    .admin-topbar {
+        align-items: flex-start;
+    }
+
+    .admin-topbar__nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 2px;
+    }
+
+    .admin-topbar__user {
+        margin-left: auto;
+    }
+
+    .admin-search-form {
+        align-items: stretch;
+    }
+
+    .admin-search-form .field-input {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .result-row,
+    .recent-row {
+        align-items: flex-start;
+    }
+
+    .students-table {
+        min-width: 100%;
+    }
+}
+
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;

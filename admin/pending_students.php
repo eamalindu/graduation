@@ -12,7 +12,7 @@ requireAdminLogin();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#7A1F2B">
     <meta name="robots" content="noindex, nofollow">
-    <title>Dashboard | Graduation Attendance</title>
+    <title>Pending Students | Graduation Attendance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
@@ -52,16 +52,16 @@ requireAdminLogin();
     <main class="admin-main" style="max-width: 90%;">
 
         <section class="panel-section">
-            <h2 class="section-title" style="margin-bottom: 40px">Pending Student Data</h2>
+            <h2 class="section-title" style="margin-bottom: 40px">Attendance Pending Summary</h2>
             <div class="table-container">
                 <table class="students-table" id="students-table">
                     <thead>
                     <tr>
                         <th>Registration Number</th>
                         <th>Full Name</th>
-                        <th>Course</th>
-                        <th>Faculty</th>
-                        <th>Batch</th>
+                        <th>Email</th>
+                        <th>Programme</th>
+                        <th>Registered Date</th>
                         <th>Attendance Status</th>
                         <th>Attendance Time</th>
                         <th>Marked By</th>

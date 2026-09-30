@@ -70,50 +70,109 @@ $csrfToken = csrfToken();
           rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
+    <style>
+    html, body { height: 100%; margin: 0; }
+    .split-page {
+    display: flex;
+    min-height: 100vh;
+    }
+    .split-image {
+    flex: 1 1 50%;
+    background: url("../images/backgrounds.png") center center / cover no-repeat;
+    position: relative;
+    }
+    .split-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%);
+    }
+    .split-image .split-caption {
+    position: absolute;
+    left: 40px;
+    bottom: 40px;
+    right: 40px;
+    color: #fff;
+    z-index: 1;
+    }
+    .split-image .split-caption h4 { font-weight: 600; margin-bottom: 4px; }
+    .split-image .split-caption p { font-size: 13px!important; opacity: 0.85; margin: 0; }
+
+    .split-form {
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 2rem;
+    }
+    .split-form-inner {
+    width: 100%;
+    max-width: 340px;
+    }
+    .split-form-inner img.logo { width: 80px; margin-bottom: 1rem; }
+    .split-form-inner h5 { font-weight: 600; margin-bottom: 2px; }
+    .split-form-inner p.subtitle { color: var(--text-muted, #8a9291); font-size: 13px; margin-bottom: 1.75rem; }
+
+    @media (max-width: 767.98px) {
+    .split-image { display: none; }
+    .split-form { padding: 1.5rem; }
+    }
+    </style>
 </head>
 <body>
-<div class="page">
 
-    <header class="header">
-        <div class="seal seal--header" aria-hidden="true">
-            <a href="">
-                <img src="../images/MC.png" alt="Metropolitan College Seal" class="seal__img" width="100" height="100"></a>
+<div class="split-page">
+    <div class="split-image">
+        <div class="split-caption">
+            <h4>Metropolitan College</h4>
+            <p>Graduation Management System</p>
         </div>
-        <p class="header__eyebrow">Graduation &middot; Admin Login</p>
-        <h1 class="header__title">Metropolitan College</h1>
-        <p class="header__subtitle">Sign in to manage attendance</p>
-    </header>
+    </div>
 
-    <main class="panel">
-        <div class="panel__inner">
-            <form method="POST" autocomplete="off">
-                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES) ?>">
-
-                <div class="field-group">
-                    <label for="username" class="field-label">Username</label>
-                    <input type="text" id="username" name="username" class="field-input field-input--text"
-                           autocomplete="username" required>
+    <div class="split-form">
+        <div class="split-form-inner">
+            <header class="header">
+                <div class="seal seal--header" aria-hidden="true">
+                    <a href="">
+                        <img src="../images/MC.png" alt="Metropolitan College Seal" class="seal__img" width="100" height="100"></a>
                 </div>
+                <p class="header__eyebrow">Graduation &middot; Admin Login</p>
+                <h1 class="header__title">Metropolitan College</h1>
+                <p class="header__subtitle">Sign in to manage attendance</p>
+            </header>
 
-                <div class="field-group" style="margin-top: 10px">
-                    <label for="password" class="field-label">Password</label>
-                    <input type="password" id="password" name="password" class="field-input field-input--text"
-                           autocomplete="current-password" required>
+            <main class="panel">
+                <div class="panel__inner">
+                    <form method="POST" autocomplete="off">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken, ENT_QUOTES) ?>">
+
+                        <div class="field-group">
+                            <label for="username" class="field-label">Username</label>
+                            <input type="text" id="username" name="username" class="field-input field-input--text"
+                                   autocomplete="username" required>
+                        </div>
+
+                        <div class="field-group" style="margin-top: 10px">
+                            <label for="password" class="field-label">Password</label>
+                            <input type="password" id="password" name="password" class="field-input field-input--text"
+                                   autocomplete="current-password" required>
+                        </div>
+
+                        <?php if ($loginError): ?>
+                            <div class="message message--error"><?= htmlspecialchars($loginError, ENT_QUOTES) ?></div>
+                        <?php endif; ?>
+
+                        <button type="submit" class="btn btn--primary">Sign In</button>
+                    </form>
                 </div>
+            </main>
 
-                <?php if ($loginError): ?>
-                    <div class="message message--error"><?= htmlspecialchars($loginError, ENT_QUOTES) ?></div>
-                <?php endif; ?>
-
-                <button type="submit" class="btn btn--primary">Sign In</button>
-            </form>
+            <footer class="footer">
+                <p>Powered by <a href="https://pixelbros.online/" target="_blank">Pixelbros</a></p>
+            </footer>
         </div>
-    </main>
-
-    <footer class="footer">
-        <p>Powered by <a href="https://pixelbros.online/" target="_blank">Pixelbros</a></p>
-    </footer>
-
+    </div>
 </div>
 </body>
 </html>

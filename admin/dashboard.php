@@ -37,6 +37,7 @@ requireAdminLogin();
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="charts.php">Registered</a></li>
                     <li><a class="dropdown-item" href="approved.php">Approved</a></li>
+                    <li><a class="dropdown-item" href="trend.php">Trend</a></li>
                 </ul>
             </div>
         </nav>

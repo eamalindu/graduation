@@ -57,14 +57,12 @@ requireAdminLogin();
                 <table class="students-table" id="students-table">
                     <thead>
                     <tr>
+                        <th>Seat Number</th>
                         <th>Registration Number</th>
                         <th>Full Name</th>
-                        <th>Email</th>
                         <th>Programme</th>
                         <th>Registered Date</th>
-                        <th>Attendance Status</th>
-                        <th>Attendance Time</th>
-                        <th>Marked By</th>
+                        <th>Gold Medalist?</th>
                     </tr>
                     </thead>
                     <tbody id="students-table-body">

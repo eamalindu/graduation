@@ -131,6 +131,10 @@
                             <span class="record__value" id="detail-batch"></span>
                         </div>
 
+                        <img src="" id="detail-seat-image" alt="Seat Image" style="max-width: 100%; margin-top: 10px; display: none;">
+
+                        <p style="text-align: center;color: #6b7280;font-size: 12px;font-weight: bold">Click On Image to enlarge</p>
+
                         <button type="button" id="confirm-btn" class="btn btn--confirm" disabled>Confirm Attendance</button>
                     </div>
 

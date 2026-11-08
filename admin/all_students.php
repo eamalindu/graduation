@@ -63,14 +63,15 @@ requireAdminLogin();
                 <table class="students-table w-100" id="students-table">
                     <thead>
                     <tr>
+                        <th>Seat Number</th>
                         <th>Registration Number</th>
                         <th>Full Name</th>
-                        <th>Email</th>
                         <th>Programme</th>
                         <th>Registered Date</th>
                         <th>Attendance Status</th>
                         <th>Attendance Time</th>
                         <th>Marked By</th>
+                        <th>Gold Medalist?</th>
                     </tr>
                     </thead>
                     <tbody id="students-table-body">
@@ -85,6 +86,8 @@ requireAdminLogin();
 </div>
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<!-- replace your current xlsx script with this -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
 <script src="https://cdn.datatables.net/3.0.0/js/dataTables.js"></script>
 <script src="assets/js/loader.js"></script>
 <script src="assets/js/students.js?"></script>

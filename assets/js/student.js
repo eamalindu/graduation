@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailCourse = document.getElementById('detail-course');
     const detailFaculty = document.getElementById('detail-faculty');
     const detailBatch = document.getElementById('detail-batch');
+    const detailSeat = document.getElementById('detail-seat');
 
     const successName = document.getElementById('success-name');
     const successTime = document.getElementById('success-time');
@@ -81,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const student = result.data;
             currentRegNumber = student.registration_number;
 
+            detailSeat.textContent = student.seatNo || '—';
             detailReg.textContent = student.registration_number;
             detailName.textContent = student.full_name;
             detailCourse.textContent = student.program || '—';

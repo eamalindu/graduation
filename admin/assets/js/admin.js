@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const statPending = document.getElementById('stat-pending');
     const statPercent = document.getElementById('stat-percent');
     const recentList = document.getElementById('recent-list');
+    const statMedalTotal = document.getElementById('stat-medal-total');
+    const statMedalPresent = document.getElementById('stat-medal-present');
+    const statMedalPending = document.getElementById('stat-medal-pending');
+
 
     const searchForm = document.getElementById('admin-search-form');
     const searchInput = document.getElementById('admin-search-input');
@@ -58,6 +62,21 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="recent-row__time">${formatDateTime(r.attendance_time)}</div>
             </div>
           `).join('');
+        } catch (err) {
+            // Background poll — fail silently, the next tick retries.
+        }
+    }
+
+    async function loadGoldMedalStats() {
+        try {
+            const res = await fetch('api/gold-stat.php');
+            const data = await res.json();
+            if (!data.success) return;
+
+            statMedalTotal.textContent = data.total;
+            statMedalPresent.textContent = data.present;
+            statMedalPending.textContent = data.pending;
+            //statPercent.textContent = `${data.percent}%`;
         } catch (err) {
             // Background poll — fail silently, the next tick retries.
         }
@@ -147,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             runSearch(searchInput.value.trim());
             loadStats();
+            loadGoldMedalStats();
         } catch (err) {
             showMessage('Could not reach the server.');
             btn.disabled = false;
@@ -155,5 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     loadStats();
+    loadGoldMedalStats();
     setInterval(loadStats, 8000);
+    setInterval(loadGoldMedalStats, 8000);
 });

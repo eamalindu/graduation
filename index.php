@@ -51,7 +51,7 @@
     }
     .split-form-inner {
     width: 100%;
-    max-width: 340px;
+    max-width: 440px;
     }
     .split-form-inner img.logo { width: 80px; margin-bottom: 1rem; }
     .split-form-inner h5 { font-weight: 600; margin-bottom: 2px; }
@@ -107,8 +107,12 @@
 
                     <div id="student-details" class="record" hidden>
                         <div class="record__row">
+                            <span class="record__label">Seat Number</span>
+                            <span class="record__value" id="detail-seat"></span>
+                        </div>
+                        <div class="record__row">
                             <span class="record__label">Reg. Number</span>
-                            <span class="record__value record__value--mono" id="detail-reg"></span>
+                            <span class="record__value" id="detail-reg"></span>
                         </div>
                         <div class="record__row">
                             <span class="record__label">Name</span>

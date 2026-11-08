@@ -48,7 +48,7 @@ requireAdminLogin();
     </header>
 
     <main class="admin-main">
-
+        <h2 class="section-title">All Student Attendance</h2>
         <section class="stats-grid" aria-live="polite">
             <div class="stat-card"><a href="all_students.php">
                     <span class="stat-card__value" id="stat-total">—</span>
@@ -66,6 +66,22 @@ requireAdminLogin();
             <div class="stat-card">
                 <span class="stat-card__value" id="stat-percent">—</span>
                 <span class="stat-card__label">Checked In</span>
+            </div>
+        </section>
+
+        <h2 class="section-title">Gold Medal Nominee Attendance</h2>
+        <section class="stats-grid" aria-live="polite">
+            <div class="stat-card w-50"><a href="total_medal_students.php">
+                    <span class="stat-card__value" id="stat-medal-total">0</span>
+                    <span class="stat-card__label">Total</span></a>
+            </div>
+            <div class="stat-card w-50"><a href="present_medal_students.php">
+                    <span class="stat-card__value" id="stat-medal-present">0</span>
+                    <span class="stat-card__label">Present</span></a>
+            </div>
+            <div class="stat-card"><a href="pending_medal_students.php">
+                    <span class="stat-card__value" id="stat-medal-pending">0</span>
+                    <span class="stat-card__label">Pending</span></a>
             </div>
         </section>
 

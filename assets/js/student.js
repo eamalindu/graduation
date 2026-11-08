@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailCourse = document.getElementById('detail-course');
     const detailFaculty = document.getElementById('detail-faculty');
     const detailBatch = document.getElementById('detail-batch');
+    const detailSeat = document.getElementById('detail-seat');
+    const detailSeatImage = document.getElementById('detail-seat-image');
 
     const successName = document.getElementById('success-name');
     const successTime = document.getElementById('success-time');
@@ -81,11 +83,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const student = result.data;
             currentRegNumber = student.registration_number;
 
+            detailSeat.textContent = student.seatNo || '—';
             detailReg.textContent = student.registration_number;
             detailName.textContent = student.full_name;
             detailCourse.textContent = student.program || '—';
             detailFaculty.textContent = student.email || '—';
             detailBatch.textContent = student.registered_date || '—';
+
+            //test code
+            const seatImagePath = `images/seats/${student.seatNo}.png`;
+
+            detailSeatImage.src = seatImagePath;
+            detailSeatImage.style.display = student.seatNo ? 'block' : 'none';
+
+            detailSeatImage.onclick = () => {
+                window.open(seatImagePath, '_blank');
+            };
 
             studentDetails.hidden = false;
 

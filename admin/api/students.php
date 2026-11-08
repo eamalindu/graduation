@@ -11,8 +11,8 @@ requireAdminLoginApi();
 try {
     $pdo = getDbConnection();
 
-    $students = $pdo->query("SELECT id, registration_number, full_name, email, program, registered_date, attendance_status, attendance_time, marked_by, roster_status
-         FROM students
+    $students = $pdo->query("SELECT id,seatNo,isGold, registration_number, full_name, email, program, registered_date, attendance_status, attendance_time, marked_by, roster_status
+         FROM students WHERE roster_status = 'registered'
          ORDER BY id")->fetchAll();
 
     echo json_encode(['success' => true, 'students' => $students]);

@@ -123,6 +123,10 @@
                             <span class="record__value" id="detail-course"></span>
                         </div>
                         <div class="record__row">
+                            <span class="record__label">Contact</span>
+                            <span class="record__value" id="detail-contact"></span>
+                        </div>
+                        <div class="record__row">
                             <span class="record__label">Email</span>
                             <span class="record__value" id="detail-faculty"></span>
                         </div>

@@ -57,6 +57,10 @@
     .split-form-inner h5 { font-weight: 600; margin-bottom: 2px; }
     .split-form-inner p.subtitle { color: var(--text-muted, #8a9291); font-size: 13px; margin-bottom: 1.75rem; }
 
+    #detail-seat-image:hover{
+        cursor: pointer;
+    }
+
     @media (max-width: 767.98px) {
     .split-image { display: none; }
     .split-form { padding: 1.5rem; }
@@ -89,16 +93,14 @@
                     <form id="search-form" class="search-form" autocomplete="off">
                         <label for="reg-number" class="field-label">Registration Number</label>
                         <input
-                                type="number"
+                                type="text"
                                 id="reg-number"
                                 name="registration_number"
                                 class="field-input"
                                 placeholder="2610454"
                                 autocapitalize="characters"
                                 autocomplete="off"
-                                required
-                                inputmode="numeric"
-                                pattern="[0-9]*"
+                                required"
                         >
                         <button type="submit" id="search-btn" class="btn btn--primary">Find My Record</button>
                     </form>
@@ -121,6 +123,10 @@
                         <div class="record__row">
                             <span class="record__label">Program</span>
                             <span class="record__value" id="detail-course"></span>
+                        </div>
+                        <div class="record__row">
+                            <span class="record__label">Contact</span>
+                            <span class="record__value" id="detail-contact"></span>
                         </div>
                         <div class="record__row">
                             <span class="record__label">Email</span>

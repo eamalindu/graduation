@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const detailBatch = document.getElementById('detail-batch');
     const detailSeat = document.getElementById('detail-seat');
     const detailSeatImage = document.getElementById('detail-seat-image');
+    const detailContact = document.getElementById('detail-contact');
 
     const successName = document.getElementById('success-name');
     const successTime = document.getElementById('success-time');
@@ -89,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             detailCourse.textContent = student.program || '—';
             detailFaculty.textContent = student.email || '—';
             detailBatch.textContent = student.registered_date || '—';
+            detailContact.textContent = student.contact || '—';
 
             //test code
             const seatImagePath = `images/seats/${student.seatNo}.png`;

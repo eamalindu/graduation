@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const statMedalTotal = document.getElementById('stat-medal-total');
     const statMedalPresent = document.getElementById('stat-medal-present');
     const statMedalPending = document.getElementById('stat-medal-pending');
+    const statEmailSent = document.getElementById('stat-email-sent');
+    const statEmailPending = document.getElementById('stat-email-pending');
+    const statSMSSent = document.getElementById('stat-sms-sent');
+    const statSMSPending = document.getElementById('stat-sms-pending');
 
 
     const searchForm = document.getElementById('admin-search-form');
@@ -77,6 +81,21 @@ document.addEventListener('DOMContentLoaded', () => {
             statMedalPresent.textContent = data.present;
             statMedalPending.textContent = data.pending;
             //statPercent.textContent = `${data.percent}%`;
+        } catch (err) {
+            // Background poll — fail silently, the next tick retries.
+        }
+    }
+
+    async function loadSMSEmail(){
+        try {
+            const res = await fetch('api/sms-stat.php');
+            const data = await res.json();
+            if (!data.success) return;
+
+            statSMSPending.textContent = data.sms_pending;
+            statSMSSent.textContent = data.sms_sent;
+            statEmailPending.textContent = data.email_pending;
+            statEmailSent.textContent = data.email_sent;
         } catch (err) {
             // Background poll — fail silently, the next tick retries.
         }
@@ -176,6 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadStats();
     loadGoldMedalStats();
+    loadSMSEmail();
+    setInterval(loadSMSEmail, 8000);
     setInterval(loadStats, 8000);
     setInterval(loadGoldMedalStats, 8000);
 });

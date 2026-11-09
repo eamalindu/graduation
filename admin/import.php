@@ -45,6 +45,10 @@ function mapHeaderToField(string $header, string $mode): ?string
     if (str_contains($h, 'reg') && (str_contains($h, 'no') || str_contains($h, 'number'))) {
         return 'registration_number';
     }
+    if (str_contains($h, 'contact') || str_contains($h, 'phone') || str_contains($h, 'mobile') || str_contains($h, 'tel')) {
+        return 'contact_number';
+    }
+
     if (str_contains($h, 'mail')) {
         return 'email';
     }
@@ -116,7 +120,7 @@ function importRoster(string $filePath, PDO $pdo, string $mode): array
     foreach ($dataRows as $i => $row) {
         $rowNumber = $headerIndex + 2 + $i; // 1-indexed, matches the row number you'd see in Excel
 
-        $record = ['registration_number' => null, 'full_name' => null, 'email' => '', 'program' => null, 'registered_date' => null];
+        $record = ['registration_number' => null, 'full_name' => null, 'email' => '', 'contact_number' => null, 'program' => null, 'registered_date' => null];
         foreach ($fieldMap as $colIndex => $field) {
             $record[$field] = isset($row[$colIndex]) ? trim((string) $row[$colIndex]) : null;
         }
@@ -139,6 +143,7 @@ function importRoster(string $filePath, PDO $pdo, string $mode): array
                 'registration_number' => $regNumber,
                 'full_name' => $fullName,
                 'email' => $record['email'] ?? '',
+                'contact_number' => ($record['contact_number'] ?? '') !== '' ? $record['contact_number'] : null,
                 'program' => ($record['program'] ?? '') !== '' ? $record['program'] : null,
                 'registered_date' => $mode === 'registered' ? (parseExcelDate($record['registered_date']) ?? date('Y-m-d')) : null,
         ];
@@ -158,14 +163,15 @@ function importRoster(string $filePath, PDO $pdo, string $mode): array
                 // attendance_status/attendance_time/marked_by are never touched here,
                 // so a re-import can never undo someone's check-in.
                 $stmt = $pdo->prepare(
-                        "INSERT INTO students (registration_number, full_name, email, program, registered_date, roster_status)
-                     VALUES (:registration_number, :full_name, :email, :program, :registered_date, 'registered')
-                     ON DUPLICATE KEY UPDATE
-                        full_name = VALUES(full_name),
-                        email = VALUES(email),
-                        program = VALUES(program),
-                        registered_date = VALUES(registered_date),
-                        roster_status = 'registered'"
+                        "INSERT INTO students (registration_number, full_name, email, contact, program, registered_date, roster_status)
+                                 VALUES (:registration_number, :full_name, :email, :contact_number, :program, :registered_date, 'registered')
+                                 ON DUPLICATE KEY UPDATE
+                                    full_name = VALUES(full_name),
+                                    email = VALUES(email),
+                                    contact = COALESCE(VALUES(contact), contact),
+                                    program = VALUES(program),
+                                    registered_date = VALUES(registered_date),
+                                    roster_status = 'registered'"
                 );
                 foreach ($valid as $record) {
                     $stmt->execute($record);
@@ -179,13 +185,14 @@ function importRoster(string $filePath, PDO $pdo, string $mode): array
                 // Approved import can only ever ADD or upgrade-preserve — it must
                 // never demote someone who has already registered back to 'approved'.
                 $stmt = $pdo->prepare(
-                        "INSERT INTO students (registration_number, full_name, email, program, roster_status)
-                     VALUES (:registration_number, :full_name, :email, :program, 'approved')
-                     ON DUPLICATE KEY UPDATE
-                        full_name = VALUES(full_name),
-                        email = VALUES(email),
-                        program = VALUES(program),
-                        roster_status = IF(roster_status = 'registered', roster_status, 'approved')"
+                        "INSERT INTO students (registration_number, full_name, email, contact, program, roster_status)
+                                 VALUES (:registration_number, :full_name, :email, :contact_number, :program, 'approved')
+                                 ON DUPLICATE KEY UPDATE
+                                    full_name = VALUES(full_name),
+                                    email = VALUES(email),
+                                    contact = COALESCE(VALUES(contact), contact),
+                                    program = VALUES(program),
+                                    roster_status = IF(roster_status = 'registered', roster_status, 'approved')"
                 );
                 foreach ($valid as $record) {
                     unset($record['registered_date']); // not a placeholder in this statement

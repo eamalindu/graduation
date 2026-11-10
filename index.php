@@ -100,7 +100,7 @@
                                 placeholder="2610454"
                                 autocapitalize="characters"
                                 autocomplete="off"
-                                required"
+                                required
                         >
                         <button type="submit" id="search-btn" class="btn btn--primary">Find My Record</button>
                     </form>

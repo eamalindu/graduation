@@ -112,13 +112,17 @@
             display: block;
             text-align: center;
             background: #333;
-            color: #ffffff;
-            text-decoration: none;
+            color: #ffffff!important;
             font-size: 13px;
             font-weight: 500;
             padding: 13px 24px;
             border-radius: 8px;
             margin-bottom: 24px;
+            width: max-content;
+            text-decoration: none;
+        }
+        .btn a{
+            color: #fff!important;
         }
 
         .alert-box {
@@ -238,7 +242,7 @@
         <div class="card-body">
             <div class="greeting">Dear {{name}},</div>
             <p class="text">
-                Your graduation registration has been completed successfully for the Metropolitan College Graduation Ceremony
+                Your graduation attendance has been completed successfully for the Metropolitan College Graduation Ceremony
                 2026.
             </p>
             <div class="info-box">
@@ -256,25 +260,43 @@
                         <td class="info-label" width="38%">Seat No</td>
                         <td class="info-value">{{seat_no}}</td>
                     </tr>
-                    <tr>
+                    <tr style="display: none">
                         <td class="info-label" width="38%">Registered on</td>
                         <td class="info-value">{{registered_on}}</td>
                     </tr>
                 </table>
             </div>
 
+            <p class="note" style="margin-bottom: 10px;text-align: left">
+                Download your seating arrangement using the button below. It includes the seat assignments for both you and your guest(s).
+            </p>
+
+            <a class="btn"
+               href="https://graduation.metropolitancollegeedu.com/download_seat.php?seat={{seat_no}}"
+               target="_blank">
+                Download Seating Arrangement
+            </a>
+
+
             <div class="steps-box">
                 <div class="info-box-title">Next Steps</div>
                 <ol>
-                    <li>Please proceed to the <strong>Clock Collection Counter</strong> to collect your graduation clock.</li>
-                    <li>After collecting your clock, proceed to the <strong>Photo Booth</strong> for your photographs.</li>
+                    <li><del>Scan the registration QR and present your original identification document and confirm your attendance</del> ✔️</li>
+                    <li>Please proceed to the <strong>Clock Collection Counter (Counter 2)</strong> to collect your graduation clock.</li>
+                    <li>After collecting your clock, proceed to the <strong>Photo Booth (Counter 3)</strong> for your photographs.</li>
                 </ol>
             </div>
+
+            <p class="note" style="margin-bottom: 10px;text-align: left">
+                To Download ceremony guide, please click the button below.
+            </p>
+
             <a class="btn"
-               href="https://graduation.metropolitancollegeedu.com/images/Seats/{{seat_no}}.png"
-               download="Seating-Arrangement-SeatNo-{{seat_no}}.png">
-                View Seating Arrangement
+               href="https://graduation.metropolitancollegeedu.com/documents/METROPOLITAN_COLLEGE_GRADUATION_CEREMONY_2026.pdf"
+               download="METROPOLITAN_COLLEGE_GRADUATION_CEREMONY_2026.pdf">
+                Download Ceremony Guide
             </a>
+
 
             <div class="divider"></div>
             <p class="note">

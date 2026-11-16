@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             detailContact.textContent = student.contact || '—';
 
             //test code
-            const seatImagePath = `images/Seats/${student.seatNo}.png`;
+            const seatImagePath = `images/Seats/${student.seatNo}.jpg`;
 
             detailSeatImage.src = seatImagePath;
             detailSeatImage.style.display = student.seatNo ? 'block' : 'none';

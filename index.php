@@ -91,13 +91,13 @@
                 <div class="panel__inner">
 
                     <form id="search-form" class="search-form" autocomplete="off">
-                        <label for="reg-number" class="field-label">Registration Number</label>
+                        <label for="reg-number" class="field-label">Registration Number / Seat No</label>
                         <input
                                 type="text"
                                 id="reg-number"
                                 name="registration_number"
                                 class="field-input"
-                                placeholder="2610454"
+                                placeholder="2610454 or 45"
                                 autocapitalize="characters"
                                 autocomplete="off"
                                 required

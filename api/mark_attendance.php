@@ -82,6 +82,12 @@ try {
         );
 
         // SMS first (plain text, local mobiles only)
+        $seat    = trim((string)($student['seatNo'] ?? ''));
+        $smsText = "Hi {$student['full_name']},\n\nYour graduation attendance was recorded at {$attendanceTime}.\n\n"
+            . ($seat !== '' ? "Seat number: {$seat}\n\n" : '')
+            . "Your seat allocation details have been sent to your email.\n\nThe email includes the assigned seat numbers for both you and your guest.\n\nPlease check your inbox for details.\n\n"
+            . "- Graduation Team";
+
         $sms = lkMobile($student['contact'] ?? null);
         if ($sms !== null) {
             $q->execute([
@@ -89,7 +95,7 @@ try {
                 'ch'   => 'sms',
                 'rcpt' => $sms,
                 'subj' => null,
-                'body' => "Hi {$student['full_name']}, your attendance was recorded at {$attendanceTime}.",
+                'body' => $smsText,
             ]);
         }
 

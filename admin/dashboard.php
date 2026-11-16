@@ -54,14 +54,15 @@ requireAdminLogin();
                     <span style="color: #168653" class="stat-card__value" id="stat-sms-sent">0</span>
                     <span class="stat-card__label">SMS Sent</span></a>
             </div>
-            <div class="stat-card w-50" style="background: #fffcf6"><a href="#">
-                    <span  style="color: #B7791F" class="stat-card__value" id="stat-sms-pending">0</span>
-                    <span class="stat-card__label">SMS Pending</span></a>
-            </div>
             <div  class="stat-card" style="background: #f7fffa"><a href="#">
                     <span style="color: #168653" class="stat-card__value" id="stat-email-sent">0</span>
                     <span class="stat-card__label">Email Sent</span></a>
             </div>
+            <div class="stat-card w-50" style="background: #fffcf6"><a href="#">
+                    <span  style="color: #B7791F" class="stat-card__value" id="stat-sms-pending">0</span>
+                    <span class="stat-card__label">SMS Pending</span></a>
+            </div>
+
             <div class="stat-card" style="background: #fffcf6"><a href="#">
                     <span style="color: #B7791F" class="stat-card__value" id="stat-email-pending">0</span>
                     <span class="stat-card__label">Email Pending</span></a>

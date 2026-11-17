@@ -83,8 +83,8 @@ body {
 }
 
 .seal--header {
-    width: 100px;
-    height: 100px;
+    width: 300px;
+
     margin: 0 auto 18px;
     filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.16));
 }
@@ -119,19 +119,19 @@ body {
 }
 
 .header__eyebrow {
-    margin: 0 0 6px;
-    font-size: 12px;
-    font-weight: 600;
+    margin: 0 0 18px;
+    font-size: 13px;
+    font-weight: 800;
     color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 2px;
+
 }
 
 .header__title {
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 30px;
-    margin: 0;
+    margin: 0 0 18px;
     color: var(--ink);
 }
 

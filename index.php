@@ -90,11 +90,11 @@ if (date('Y-m-d') < '2026-11-01') {
         <div class="split-form-inner">
             <header class="header">
                 <div class="seal seal--header" aria-hidden="true"><a href="">
-                        <img src="images/MC.png" alt="Metropolitan College Seal" class="seal__img" width="100" height="100"></a>
+                        <img src="images/logo.png" alt="Metropolitan College Seal" class="seal__img" style="width: 100%"></a>
                 </div>
                 <p class="header__eyebrow">Graduation &middot; Attendance</p>
-                <h1 class="header__title">Metropolitan College</h1>
-                <p class="header__subtitle">Confirm your attendance below</p>
+                <h1 class="header__title">Graduation Ceremony 2026</h1>
+                <p class="header__subtitle">Please confirm your attendance by entering your registration number below.</p>
             </header>
             <main class="panel">
                 <div class="panel__inner">

@@ -1,3 +1,12 @@
+<?php
+date_default_timezone_set('Asia/Colombo');
+
+if (date('Y-m-d') < '2026-11-01') {
+    http_response_code(200);
+    echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Coming Soon</title><style>html,body{height:100%;margin:0}body{display:flex;justify-content:center;align-items:center;overflow:hidden;background:#000}body::before{content:"";position:fixed;inset:-40px;background:url("images/img.png") center/cover no-repeat;filter:blur(40px) brightness(.8)}img{position:relative;max-width:75%;max-height:75%;object-fit:contain;border-radius: 25px}</style></head><body><img src="images/img.png" alt="Coming soon"></body></html>';
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,11 +90,11 @@
         <div class="split-form-inner">
             <header class="header">
                 <div class="seal seal--header" aria-hidden="true"><a href="">
-                        <img src="images/MC.png" alt="Metropolitan College Seal" class="seal__img" width="100" height="100"></a>
+                        <img src="images/logo.png" alt="Metropolitan College Seal" class="seal__img" style="width: 100%"></a>
                 </div>
                 <p class="header__eyebrow">Graduation &middot; Attendance</p>
-                <h1 class="header__title">Metropolitan College</h1>
-                <p class="header__subtitle">Confirm your attendance below</p>
+                <h1 class="header__title">Graduation Ceremony 2026</h1>
+                <p class="header__subtitle">Please confirm your attendance by entering your registration number below.</p>
             </header>
             <main class="panel">
                 <div class="panel__inner">
@@ -100,7 +109,7 @@
                                 placeholder="2610454"
                                 autocapitalize="characters"
                                 autocomplete="off"
-                                required"
+                                required
                         >
                         <button type="submit" id="search-btn" class="btn btn--primary">Find My Record</button>
                     </form>

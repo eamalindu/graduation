@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 `).join('');
 
                 new DataTable('#students-table', {
-                    pageLength: 10, searching: true, ordering: true
+                    pageLength: 10, searching: true, ordering: true,  order: [[0, 'desc']]
                 });
             } else {
                 studentList.innerHTML = '<p class="empty-note">No students found.</p>';

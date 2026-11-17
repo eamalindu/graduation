@@ -1,9 +1,9 @@
 <?php
 date_default_timezone_set('Asia/Colombo');
 
-if (date('Y-m-d') < '2026-12-01') {
-    http_response_code(503);
-    echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Coming Soon</title><style>html,body{height:100%;margin:0}body{display:flex;justify-content:center;align-items:center;overflow:hidden;background:#000}body::before{content:"";position:fixed;inset:-40px;background:url("images/img.png") center/cover no-repeat;filter:blur(40px) brightness(.8)}img{position:relative;max-width:75%;max-height:75%;object-fit:contain}</style></head><body><img src="images/img.png" alt="Coming soon"></body></html>';
+if (date('Y-m-d') < '2026-11-01') {
+    http_response_code(200);
+    echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Coming Soon</title><style>html,body{height:100%;margin:0}body{display:flex;justify-content:center;align-items:center;overflow:hidden;background:#000}body::before{content:"";position:fixed;inset:-40px;background:url("images/img.png") center/cover no-repeat;filter:blur(40px) brightness(.8)}img{position:relative;max-width:75%;max-height:75%;object-fit:contain;border-radius: 25px}</style></head><body><img src="images/img.png" alt="Coming soon"></body></html>';
     exit;
 }
 ?>
@@ -100,13 +100,13 @@ if (date('Y-m-d') < '2026-12-01') {
                 <div class="panel__inner">
 
                     <form id="search-form" class="search-form" autocomplete="off">
-                        <label for="reg-number" class="field-label">Registration Number / Seat No</label>
+                        <label for="reg-number" class="field-label">Registration Number</label>
                         <input
                                 type="text"
                                 id="reg-number"
                                 name="registration_number"
                                 class="field-input"
-                                placeholder="2610454 or 45"
+                                placeholder="2610454"
                                 autocapitalize="characters"
                                 autocomplete="off"
                                 required

@@ -11,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$term = trim($_POST['registration_number'] ?? '');
+$regNumber = trim($_POST['registration_number'] ?? '');
 
-if ($term === '') {
-    echo json_encode(['success' => false, 'message' => 'Enter your registration number or seat number to continue.']);
+if ($regNumber === '') {
+    echo json_encode(['success' => false, 'message' => 'Enter your registration number to continue.']);
     exit;
 }
 
@@ -22,25 +22,18 @@ try {
     $pdo = getDbConnection();
 
     $stmt = $pdo->prepare(
-        'SELECT registration_number, full_name, email, program, attendance_status, attendance_time,
-                roster_status, registered_date, seatNo, contact
+        'SELECT registration_number, full_name, email, program, attendance_status, attendance_time, roster_status,registered_date,seatNo,contact
          FROM students
-         WHERE UPPER(registration_number) = UPPER(:term_reg)
-            OR UPPER(seatNo) = UPPER(:term_seat)
-         ORDER BY (UPPER(registration_number) = UPPER(:term_order)) DESC
+         WHERE UPPER(registration_number) = UPPER(:reg_number)
          LIMIT 1'
     );
-    $stmt->execute([
-        'term_reg'   => $term,
-        'term_seat'  => $term,
-        'term_order' => $term,
-    ]);
+    $stmt->execute(['reg_number' => $regNumber]);
     $student = $stmt->fetch();
 
     if (!$student) {
         echo json_encode([
             'success' => false,
-            'message' => 'No record found for that registration or seat number.',
+            'message' => 'No record found for that registration number.',
         ]);
         exit;
     }

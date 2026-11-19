@@ -14,6 +14,7 @@ if (date('Y-m-d') < '2026-11-01') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#211C16">
     <meta name="robots" content="noindex, nofollow">
+    <meta name="author" content="Malindu Prabodhitha">
     <title>Graduation Attendance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

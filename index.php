@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Asia/Colombo');
-
-if (date('Y-m-d') < '2026-11-01') {
+if (date('Y-m-d') < '2026-12-01') {
     http_response_code(200);
+    header("Location:registration.php");
     echo '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Coming Soon</title><style>html,body{height:100%;margin:0}body{display:flex;justify-content:center;align-items:center;overflow:hidden;background:#000}body::before{content:"";position:fixed;inset:-40px;background:url("images/img.png") center/cover no-repeat;filter:blur(40px) brightness(.8)}img{position:relative;max-width:75%;max-height:75%;object-fit:contain;border-radius: 25px}</style></head><body><img src="images/img.png" alt="Coming soon"></body></html>';
     exit;
 }

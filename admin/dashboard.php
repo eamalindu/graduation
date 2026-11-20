@@ -29,6 +29,7 @@ requireAdminLogin();
         <nav class="admin-topbar__nav">
             <?php if (!empty($_SESSION['admin_mode'])): ?>
                 <a href="dashboard.php" class="is-active">Dashboard</a>
+                <a href="registrations.php">Registrations</a>
                 <a href="import.php">Import Students</a>
             <?php endif; ?>
 

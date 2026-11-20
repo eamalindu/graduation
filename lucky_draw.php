@@ -128,6 +128,7 @@
             line-height: 1.15;
             margin: 0 0 6px;
         }
+        .lucky-note { font-size: 13px; line-height: 1.45; color: var(--ink); }
         .spin-hint { margin: 14px 0 0; text-align: center; color: #6b7280; font-size: 12px; font-weight: bold; }
 
         /* ---- result popup ---- */
@@ -189,7 +190,7 @@
                     </a>
                 </div>
                 <p class="header__eyebrow">Graduation &middot; Lucky Draw</p>
-                <h1 class="header__title">Lucky Draw</h1>
+                <h1 class="header__title">Graduation Ceremony 2026</h1>
                 <p class="header__subtitle">Enter your registration number, then spin the wheel.</p>
             </header>
 
@@ -199,14 +200,14 @@
                     <form id="lookup-form" class="search-form" autocomplete="off">
                         <label for="reg-number" class="field-label">Registration Number</label>
                         <input
-                            type="text"
-                            id="reg-number"
-                            name="registration_number"
-                            class="field-input"
-                            placeholder="2610454"
-                            autocapitalize="characters"
-                            autocomplete="off"
-                            required
+                                type="text"
+                                id="reg-number"
+                                name="registration_number"
+                                class="field-input"
+                                placeholder="2610454"
+                                autocapitalize="characters"
+                                autocomplete="off"
+                                required
                         >
                         <button type="submit" id="lookup-btn" class="btn btn--primary">Find My Record</button>
                     </form>
@@ -214,7 +215,7 @@
                     <div id="message" class="message" hidden aria-live="polite"></div>
 
                     <div id="student-card" class="record" hidden>
-                        <p class="record__name" style="text-align: center" id="s-name"></p>
+                        <p class="record__name" id="s-name"></p>
                         <div class="record__row">
                             <span class="record__label">Reg. Number</span>
                             <span class="record__value" id="s-reg"></span>
@@ -233,6 +234,8 @@
 
                 </div>
             </main>
+
+            <p class="footer lucky-note">Note: All amounts shown on the wheel are discounts on future programs, not cash. They do not apply to your current program.</p>
         </div>
     </div>
 </div>

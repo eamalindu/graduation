@@ -49,6 +49,21 @@ requireAdminLogin();
     </header>
 
     <main class="admin-main">
+
+        <h2 class="section-title">Slash and Ticket Collection</h2>
+        <section class="stats-grid" aria-live="polite" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+            <div class="stat-card" >
+                    <span class="stat-card__value" id="stat-yesterday">—</span>
+                    <span class="stat-card__label">21<sup>st</sup> Nov</span>
+
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__value" id="stat-today">—</span>
+                <span class="stat-card__label">22<sup>nd</sup> Nov</span>
+
+            </div>
+        </section>
+
         <h2 class="section-title">SMS and Email BackLog</h2>
         <section class="stats-grid" aria-live="polite">
             <div class="stat-card w-50" style="background: #f7fffa"><a href="#">

@@ -50,7 +50,7 @@ requireAdminLogin();
 
     <main class="admin-main">
 
-        <h2 class="section-title">Slash and Ticket Collection</h2>
+        <h2 class="section-title">Sash and Ticket Collection</h2>
         <section class="stats-grid" aria-live="polite" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
             <div class="stat-card" >
                     <span class="stat-card__value" id="stat-yesterday">—</span>

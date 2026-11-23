@@ -62,6 +62,6 @@ requireAdminLogin();
 </div>
 <script>window.CSRF_TOKEN = "<?= htmlspecialchars(csrfToken(), ENT_QUOTES) ?>";</script>
 <script src="https://cdn.datatables.net/3.0.0/js/dataTables.js"></script>
-<script src="assets/js/winners.js"></script>
+<script src="../assets/js/winners.js"></script>
 </body>
 </html>

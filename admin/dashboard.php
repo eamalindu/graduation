@@ -94,7 +94,7 @@ requireAdminLogin();
             </div>
         </section>
 
-        <h2 class="section-title">All Student Attendance</h2>
+        <h2 class="section-title">All Student Attendance (Graduation)</h2>
         <section class="stats-grid" aria-live="polite">
             <div class="stat-card"><a href="all_students.php">
                     <span class="stat-card__value" id="stat-total">—</span>
@@ -115,7 +115,7 @@ requireAdminLogin();
             </div>
         </section>
 
-        <h2 class="section-title">Gold Medal Nominee Attendance</h2>
+        <h2 class="section-title">Gold Medal Nominee Attendance (Graduation)</h2>
         <section class="stats-grid" aria-live="polite">
             <div class="stat-card w-50"><a href="total_medal_students.php">
                     <span class="stat-card__value" id="stat-medal-total">0</span>
@@ -132,7 +132,7 @@ requireAdminLogin();
         </section>
 
         <section class="panel-section">
-            <h2 class="section-title">Search &amp; Manual Check-in</h2>
+            <h2 class="section-title">Search &amp; Manual Check-in (Graduation)</h2>
             <form id="admin-search-form" class="admin-search-form" autocomplete="off">
                 <input
                         type="text"
@@ -148,7 +148,7 @@ requireAdminLogin();
         </section>
 
         <section class="panel-section">
-            <h2 class="section-title">Recently Checked In</h2>
+            <h2 class="section-title">Recently Checked In (Graduation)</h2>
             <div id="recent-list" class="recent-list" aria-live="polite">
                 <p class="empty-note">No check-ins yet.</p>
             </div>

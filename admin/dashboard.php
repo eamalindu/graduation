@@ -29,9 +29,9 @@ requireAdminLogin();
         <nav class="admin-topbar__nav">
             <?php if (!empty($_SESSION['admin_mode'])): ?>
                 <a href="dashboard.php" class="is-active">Dashboard</a>
-                <a href="registrations.php">Registrations</a>
+
                 <a href="import.php">Import Students</a>
-            <?php endif; ?>
+
 
             <div class="dropdown">
                 <button type="button" class="dropdown-toggle" data-dropdown-toggle>Charts</button>
@@ -41,6 +41,9 @@ requireAdminLogin();
                     <li><a class="dropdown-item" href="trend.php">Trend</a></li>
                 </ul>
             </div>
+            <?php endif; ?>
+            <a href="registrations.php">Registrations (Sash and Ticket Collection)</a>
+            <a href="winners.php">Lucky Draw Winners</a>
         </nav>
         <div class="admin-topbar__user">
             <span><?= htmlspecialchars($_SESSION['admin_name'], ENT_QUOTES) ?></span>
@@ -51,7 +54,7 @@ requireAdminLogin();
     <main class="admin-main">
 
         <h2 class="section-title">Sash and Ticket Collection</h2>
-        <section class="stats-grid" aria-live="polite" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+        <section class="stats-grid" aria-live="polite" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
             <div class="stat-card" >
                     <span class="stat-card__value" id="stat-yesterday">—</span>
                     <span class="stat-card__label">21<sup>st</sup> Nov</span>
@@ -60,6 +63,12 @@ requireAdminLogin();
             <div class="stat-card">
                 <span class="stat-card__value" id="stat-today">—</span>
                 <span class="stat-card__label">22<sup>nd</sup> Nov</span>
+
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card__value" id="stat-kalmunai">—</span>
+                <span class="stat-card__label">25<sup>th</sup> Nov (Kalmunai)</span>
 
             </div>
         </section>

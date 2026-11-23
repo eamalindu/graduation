@@ -54,7 +54,7 @@ requireAdminLogin();
     <main class="admin-main">
 
         <h2 class="section-title">Sash and Ticket Collection</h2>
-        <section class="stats-grid" aria-live="polite" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+        <section class="stats-grid" aria-live="polite" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
             <div class="stat-card" >
                     <span class="stat-card__value" id="stat-yesterday">—</span>
                     <span class="stat-card__label">21<sup>st</sup> Nov</span>
@@ -63,6 +63,11 @@ requireAdminLogin();
             <div class="stat-card">
                 <span class="stat-card__value" id="stat-today">—</span>
                 <span class="stat-card__label">22<sup>nd</sup> Nov</span>
+
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__value" id="stat-others">—</span>
+                <span class="stat-card__label"> From 23<sup>rd</sup> Nov</span>
 
             </div>
 

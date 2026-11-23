@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nov21 = document.getElementById('stat-yesterday');
     const nov22 = document.getElementById('stat-today');
     const nov25 = document.getElementById('stat-kalmunai');
+    const novOther = document.getElementById('stat-others');
 
 
     const searchForm = document.getElementById('admin-search-form');
@@ -112,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             nov21.textContent = data.counts.nov_21 ?? '0';
             nov22.textContent = data.counts.nov_22 ?? '0';
+            novOther.textContent = data.counts.nov_other ?? '0';
             nov25.textContent = data.counts.nov_25 ?? '0';
         } catch (err) {
             // Background poll — fail silently, the next tick retries.

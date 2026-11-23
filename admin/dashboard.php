@@ -29,8 +29,9 @@ requireAdminLogin();
         <nav class="admin-topbar__nav">
             <?php if (!empty($_SESSION['admin_mode'])): ?>
                 <a href="dashboard.php" class="is-active">Dashboard</a>
+
                 <a href="import.php">Import Students</a>
-            <?php endif; ?>
+
 
             <div class="dropdown">
                 <button type="button" class="dropdown-toggle" data-dropdown-toggle>Charts</button>
@@ -40,6 +41,9 @@ requireAdminLogin();
                     <li><a class="dropdown-item" href="trend.php">Trend</a></li>
                 </ul>
             </div>
+            <?php endif; ?>
+            <a href="registrations.php">Registrations (Sash and Ticket Collection)</a>
+            <a href="winners.php">Lucky Draw Winners</a>
         </nav>
         <div class="admin-topbar__user">
             <span><?= htmlspecialchars($_SESSION['admin_name'], ENT_QUOTES) ?></span>
@@ -48,6 +52,32 @@ requireAdminLogin();
     </header>
 
     <main class="admin-main">
+
+        <h2 class="section-title">Sash and Ticket Collection</h2>
+        <section class="stats-grid" aria-live="polite" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+            <div class="stat-card" >
+                    <span class="stat-card__value" id="stat-yesterday">—</span>
+                    <span class="stat-card__label">21<sup>st</sup> Nov</span>
+
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__value" id="stat-today">—</span>
+                <span class="stat-card__label">22<sup>nd</sup> Nov</span>
+
+            </div>
+            <div class="stat-card">
+                <span class="stat-card__value" id="stat-others">—</span>
+                <span class="stat-card__label"> From 23<sup>rd</sup> Nov</span>
+
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-card__value" id="stat-kalmunai">—</span>
+                <span class="stat-card__label">25<sup>th</sup> Nov (Kalmunai)</span>
+
+            </div>
+        </section>
+
         <h2 class="section-title">SMS and Email BackLog</h2>
         <section class="stats-grid" aria-live="polite">
             <div class="stat-card w-50" style="background: #f7fffa"><a href="#">
@@ -69,7 +99,7 @@ requireAdminLogin();
             </div>
         </section>
 
-        <h2 class="section-title">All Student Attendance</h2>
+        <h2 class="section-title">All Student Attendance (Graduation)</h2>
         <section class="stats-grid" aria-live="polite">
             <div class="stat-card"><a href="all_students.php">
                     <span class="stat-card__value" id="stat-total">—</span>
@@ -90,7 +120,7 @@ requireAdminLogin();
             </div>
         </section>
 
-        <h2 class="section-title">Gold Medal Nominee Attendance</h2>
+        <h2 class="section-title">Gold Medal Nominee Attendance (Graduation)</h2>
         <section class="stats-grid" aria-live="polite">
             <div class="stat-card w-50"><a href="total_medal_students.php">
                     <span class="stat-card__value" id="stat-medal-total">0</span>
@@ -107,7 +137,7 @@ requireAdminLogin();
         </section>
 
         <section class="panel-section">
-            <h2 class="section-title">Search &amp; Manual Check-in</h2>
+            <h2 class="section-title">Search &amp; Manual Check-in (Graduation)</h2>
             <form id="admin-search-form" class="admin-search-form" autocomplete="off">
                 <input
                         type="text"
@@ -123,7 +153,7 @@ requireAdminLogin();
         </section>
 
         <section class="panel-section">
-            <h2 class="section-title">Recently Checked In</h2>
+            <h2 class="section-title">Recently Checked In (Graduation)</h2>
             <div id="recent-list" class="recent-list" aria-live="polite">
                 <p class="empty-note">No check-ins yet.</p>
             </div>

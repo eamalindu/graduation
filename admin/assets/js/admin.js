@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const statEmailPending = document.getElementById('stat-email-pending');
     const statSMSSent = document.getElementById('stat-sms-sent');
     const statSMSPending = document.getElementById('stat-sms-pending');
+    const nov21 = document.getElementById('stat-yesterday');
+    const nov22 = document.getElementById('stat-today');
+    const nov25 = document.getElementById('stat-kalmunai');
+    const novOther = document.getElementById('stat-others');
 
 
     const searchForm = document.getElementById('admin-search-form');
@@ -100,6 +104,22 @@ document.addEventListener('DOMContentLoaded', () => {
             // Background poll — fail silently, the next tick retries.
         }
     }
+
+    async function loadRegistrationStats() {
+        try {
+            const res = await fetch('api/registration-stat.php');
+            const data = await res.json();
+            if (!data.success) return;
+
+            nov21.textContent = data.counts.nov_21 ?? '0';
+            nov22.textContent = data.counts.nov_22 ?? '0';
+            novOther.textContent = data.counts.nov_other ?? '0';
+            nov25.textContent = data.counts.nov_25 ?? '0';
+        } catch (err) {
+            // Background poll — fail silently, the next tick retries.
+        }
+    }
+
 
     function renderResults(results) {
         if (results.length === 0) {
@@ -196,7 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
     loadStats();
     loadGoldMedalStats();
     loadSMSEmail();
+    loadRegistrationStats();
     setInterval(loadSMSEmail, 8000);
     setInterval(loadStats, 8000);
     setInterval(loadGoldMedalStats, 8000);
+    setInterval(loadRegistrationStats, 8000);
 });

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ---------- config ----------
-    const CURRENCY = 'Rs. ';          // shown before cash prizes, set to '' to hide
+    const CURRENCY = 'Rs. ';          // shown before the amounts, set to '' to hide
+    const DISCOUNT_NOTE = 'This is a discount on a program, not cash.';  // shown with amount prizes
     const DEFAULT_SPEED = 1.0;        // start speed (degrees per ms) when spinning with the button or hub
     const MIN_FLICK = 0.25;           // slowest flick (deg/ms) that still counts as a spin
     const MAX_SPEED = 2.2;            // fastest start speed the wheel will use
@@ -241,15 +242,17 @@ document.addEventListener('DOMContentLoaded', () => {
         resultCard.classList.toggle('is-miss', miss);
         $('r-who').textContent = fullName || '';
 
+        const note = isCash(prize) ? ' ' + DISCOUNT_NOTE : '';
+
         if (already) {
             $('r-title').textContent = miss ? 'No prize' : prizeLabel(prize);
-            $('r-note').textContent = 'You have already spun the wheel. This was your result.';
+            $('r-note').textContent = 'You have already spun the wheel. This was your result.' + note;
         } else if (miss) {
             $('r-title').textContent = 'Not this time';
             $('r-note').textContent = 'No prize on this spin. Thank you for taking part.';
         } else {
             $('r-title').textContent = prizeLabel(prize);
-            $('r-note').textContent = 'Congratulations, you won a prize.';
+            $('r-note').textContent = 'Congratulations, you won a prize.' + note;
         }
 
         result.hidden = false;

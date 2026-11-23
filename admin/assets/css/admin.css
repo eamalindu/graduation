@@ -903,6 +903,93 @@
 }
 
 /* =========================================================
+   Users
+   ========================================================= */
+
+.users-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.users-bar .section-title {
+    margin: 0;
+}
+
+.users-table {
+    text-align: left;
+}
+
+.users-table th,
+.users-table td {
+    padding: 10px 12px;
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid var(--accent);
+    border-radius: 99px;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.user-dialog {
+    width: min(380px, calc(100% - 32px));
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--ink);
+    font-family: var(--font-body);
+}
+
+.user-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.form-row {
+    display: block;
+    margin-top: 14px;
+    color: var(--ink-muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-row small {
+    font-weight: 400;
+}
+
+.form-row .field-input {
+    margin-top: 4px;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    font-size: 14px;
+}
+
+.form-error {
+    min-height: 1.2em;
+    margin: 12px 0 0;
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+/* =========================================================
    Responsive
    ========================================================= */
 

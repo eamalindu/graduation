@@ -56,36 +56,54 @@ document.getElementById('download-btn').addEventListener('click', async () => {
             return;
         }
 
-        const worksheet = XLSX.utils.json_to_sheet(jsonData);
+        // 1. Pick only the columns you want (key order = column order)
+        const exportData = jsonData.map(s => ({
+            "Graduation No": s.seatNo,
+            "Reg No": s.registration_number,
+            "Full Name": s.full_name,
+            "Program": s.program,
+            "Attendance": s.attendance_status
+        }));
 
-        // EDIT THIS: your logical condition
+        const worksheet = XLSX.utils.json_to_sheet(exportData);
+
+        // Conditions (use the ORIGINAL row)
         const shouldHighlight = (s) => Number(s.isGold) > 0;
+        const isPending = (s) => s.attendance_status === 'pending';
 
         const thin = { style: "thin", color: { rgb: "000000" } };
         const border = { top: thin, bottom: thin, left: thin, right: thin };
 
-        const baseStyle = { border };
-        const highlightStyle = {
-            border,
-            fill: { patternType: "solid", fgColor: { rgb: "FFC300" } }
-        };
+        const goldFill = { patternType: "solid", fgColor: { rgb: "FFC300" } };
+        const pendingFont = { bold: true, color: { rgb: "FF0000" } };
+
         const headerStyle = {
             border,
             font: { bold: true },
             fill: { patternType: "solid", fgColor: { rgb: "D9E1F2" } }
         };
 
+        // Build a style per row from the flags
+        const getRowStyle = (s) => {
+            const style = { border };
+            if (shouldHighlight(s)) style.fill = goldFill;
+            if (isPending(s)) style.font = pendingFont;
+            return style;
+        };
+
         const range = XLSX.utils.decode_range(worksheet['!ref']);
 
         for (let r = range.s.r; r <= range.e.r; r++) {
-            const highlight = r > 0 && shouldHighlight(jsonData[r - 1]);
-            const style = r === 0 ? headerStyle : (highlight ? highlightStyle : baseStyle);
+            const style = r === 0 ? headerStyle : getRowStyle(jsonData[r - 1]);
 
             for (let c = range.s.c; c <= range.e.c; c++) {
                 const addr = XLSX.utils.encode_cell({ r, c });
                 if (worksheet[addr]) worksheet[addr].s = style;
             }
         }
+
+        // Optional: column widths
+        worksheet['!cols'] = [{ wch: 15 }, { wch: 16 }, { wch: 34 }, { wch: 67 }, { wch: 11 }];
 
         const workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(workbook, worksheet, "Students | Graduation 2026");

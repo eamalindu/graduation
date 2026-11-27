@@ -33,3 +33,32 @@ window.addEventListener('DOMContentLoaded', () => {
         });
     hideLoader()
 })
+
+document.getElementById('download-btn').addEventListener('click', async (e) => {
+    const btn = e.currentTarget;
+    const label = btn.textContent;
+
+    if (!confirm('Send SMS to ALL gold medal winners?')) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+        const res = await fetch('/admin/api/send-sms.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'X-CSRF-Token': window.CSRF_TOKEN }
+        });
+        const data = await res.json();
+
+        alert(data.success
+            ? `${data.test ? '[TEST MODE] ' : ''}SMS: ${data.sms.sent} sent, ${data.sms.failed} failed, ${data.sms.skipped} skipped\n` +
+            `Email: ${data.email.sent} sent, ${data.email.failed} failed, ${data.email.skipped} skipped`
+            : data.message);
+    } catch (err) {
+        alert('Request failed. Check the server logs before retrying.');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+    }
+});

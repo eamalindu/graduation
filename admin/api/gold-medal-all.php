@@ -11,7 +11,7 @@ requireAdminLoginApi();
 try {
     $pdo = getDbConnection();
 
-    $students = $pdo->query("SELECT id,seatNo,isGold, registration_number, full_name, email, program, registered_date, attendance_status, attendance_time, marked_by, roster_status
+    $students = $pdo->query("SELECT id,seatNo,isGold,contact, registration_number, full_name, email, program, registered_date, attendance_status, attendance_time, marked_by, roster_status
          FROM students WHERE roster_status = 'registered' AND isGold = 1
          ORDER BY id")->fetchAll();
 

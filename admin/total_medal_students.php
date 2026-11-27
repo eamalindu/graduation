@@ -19,7 +19,7 @@ requireAdminLogin();
           rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/3.0.0/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/admin.css?v3">
     <link rel="stylesheet" href="assets/css/loader.css">
 
     <link rel="icon" type="image/ico" href="../favicon.ico"/>
@@ -78,6 +78,13 @@ requireAdminLogin();
                     <!-- Student rows will be populated here by JavaScript -->
                     </tbody>
                 </table>
+
+            </div>
+
+            <?php if (!empty($_SESSION['admin_mode'])): ?>
+
+                <button id="download-btn">Send SMS</button>
+            <?php endif; ?>
 
         </section>
 
